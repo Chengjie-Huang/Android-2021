@@ -38,7 +38,7 @@
         android:text="@string/main_list_button_text"
         android:textColor="@color/black"
         android:textSize="15sp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:backgroundTint="@color/white"
         app:cornerRadius="60dp" />
 
@@ -56,7 +56,7 @@
         android:text="@string/main_list_button_text"
         android:textColor="@color/black"
         android:textSize="15sp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:backgroundTint="@color/white"
         app:cornerRadius="60dp" />
 
