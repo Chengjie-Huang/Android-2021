@@ -1,4 +1,4 @@
-package com.example.assessment
+package com.example.mapdemo
 
 import org.junit.Test
 
