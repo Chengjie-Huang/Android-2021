@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener
 import com.google.android.gms.maps.GoogleMap.OnMyLocationClickListener
+import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
 
 import com.example.mapdemo.databinding.ActivityMapsBinding
 import com.example.mapdemo.PermissionUtils.PermissionDeniedDialog.Companion.newInstance
@@ -28,7 +29,7 @@ import com.example.mapdemo.PermissionUtils.isPermissionGranted
 import com.example.mapdemo.PermissionUtils.requestPermission
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButtonClickListener,
-    OnMyLocationClickListener {
+    OnMyLocationClickListener, OnRequestPermissionsResultCallback {
 
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityMapsBinding
@@ -95,12 +96,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
         Toast.makeText(this, "Current location:\n$location", Toast.LENGTH_LONG).show()
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
+                                            grantResults: IntArray) {
         if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
             return
         }
-        if (isPermissionGranted(permissions, grantResults, Manifest.permission.ACCESS_FINE_LOCATION)) {
+        if (isPermissionGranted(permissions, grantResults,
+                Manifest.permission.ACCESS_FINE_LOCATION)) {
             // Enable the my location layer if the permission has been granted.
             enableMyLocation()
         } else {
