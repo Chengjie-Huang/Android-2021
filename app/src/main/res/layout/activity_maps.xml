@@ -8,40 +8,42 @@
     tools:context=".MapsActivity" >
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/search_button"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignEnd="@+id/main_list_button"
-        android:layout_above="@+id/visit_button"
-        android:layout_marginBottom="8dp"
-        android:insetLeft="0dp"
-        android:insetTop="0dp"
-        android:insetRight="0dp"
-        android:insetBottom="0dp"
-        android:text="@string/main_list_button_text"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:visibility="invisible"
-        app:backgroundTint="@color/white"
-        app:cornerRadius="60dp" />
-
-    <com.google.android.material.button.MaterialButton
         android:id="@+id/visit_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignEnd="@+id/main_list_button"
-        android:layout_above="@+id/main_list_button"
-        android:layout_marginBottom="8dp"
-        android:insetLeft="0dp"
-        android:insetTop="0dp"
-        android:insetRight="0dp"
         android:insetBottom="0dp"
+        android:insetLeft="0dp"
+        android:insetRight="0dp"
+        android:insetTop="0dp"
+        app:cornerRadius="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="4dp"
+        app:backgroundTint="@color/white"
         android:text="@string/main_list_button_text"
         android:textColor="@color/black"
-        android:textSize="15sp"
         android:visibility="invisible"
+        android:textSize="15sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/search_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:insetBottom="0dp"
+        android:insetLeft="0dp"
+        android:insetRight="0dp"
+        android:insetTop="0dp"
+        app:cornerRadius="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="4dp"
         app:backgroundTint="@color/white"
-        app:cornerRadius="60dp" />
+        android:text="@string/main_list_button_text"
+        android:textColor="@color/black"
+        android:visibility="invisible"
+        android:textSize="15sp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/main_list_button"

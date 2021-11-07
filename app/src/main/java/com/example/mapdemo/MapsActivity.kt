@@ -2,15 +2,21 @@ package com.example.mapdemo
 
 import android.os.Bundle
 import android.Manifest
+import android.animation.Animator
+import android.animation.Animator.AnimatorListener
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.widget.Toast
 import android.location.Location
 import android.view.View
+import android.widget.Button
 import android.widget.RelativeLayout
 
 import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.animation.addListener
 import androidx.core.app.ActivityCompat
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -46,6 +52,44 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         changeLocationButtonPosition(mapFragment)
+
+        // Operation when clicking on the main list button
+        val mainButton = findViewById<Button>(R.id.main_list_button)
+        val searchButton = findViewById<Button>(R.id.search_button)
+        val visitButton = findViewById<Button>(R.id.visit_button)
+        val buttonList: Array<Button> = arrayOf<Button>(searchButton, visitButton)
+        mainButton.setOnClickListener(View.OnClickListener {
+            showButtonList(buttonList)
+            mainButton.text = if(mainButtonClicks % 2 == 0) "-" else "+"
+            mainButtonClicks += 1
+        })
+    }
+
+    /**
+     * Show the main button list by animation.
+     */
+    @SuppressLint("Recycle")
+    private fun showButtonList(buttonList: Array<Button>) {
+        var i = 1
+        for (button in buttonList) {
+            val objAnimatorY: ObjectAnimator
+            if (mainButtonClicks % 2 == 0) {
+                button.visibility = View.VISIBLE
+                objAnimatorY = ObjectAnimator.ofFloat(button, "y", button.y,
+                    button.y - i * BUTTON_Y_OFF_AXIS)
+            } else {
+                objAnimatorY = ObjectAnimator.ofFloat(button, "y", button.y,
+                    button.y + i * BUTTON_Y_OFF_AXIS)
+                objAnimatorY.addListener(object: AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator?) {
+                        button.visibility = View.GONE
+                    }
+                })
+            }
+            objAnimatorY.startDelay = 10
+            objAnimatorY.start()
+            i += 1
+        }
     }
 
     /**
@@ -153,5 +197,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
          * @see .onRequestPermissionsResult
          */
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+        private var mainButtonClicks = 0
+        private const val BUTTON_Y_OFF_AXIS = 120
     }
 }
