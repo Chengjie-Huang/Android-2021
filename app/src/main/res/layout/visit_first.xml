@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/newVisit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#03A9F4"
+        android:gravity="center_horizontal"
+        android:padding="30dp"
+        android:shadowColor="#FF9800"
+        android:shadowDx="3.0"
+        android:shadowDy="3.0"
+        android:shadowRadius="3.0"
+        android:text="New Visit"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        android:textStyle="bold"
+
+        />
+
+
+    <EditText
+        android:id="@+id/title_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:gravity="center"
+        android:hint="insert a title"
+        />
+
+    <TextView
+        android:id="@+id/explain_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="show current data and time automatically calculated"
+        android:textSize="15dp" />
+
+    <Button
+        android:id="@+id/start_button"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="80dp"
+        android:text="START"
+        android:textSize="25sp" />
+
+
+
+</LinearLayout>
