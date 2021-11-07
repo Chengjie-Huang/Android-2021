@@ -4,25 +4,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <TextView
-        android:id="@+id/newVisit_text"
+        android:id="@+id/new_visit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#03A9F4"
+        android:background="@color/purple_700"
         android:gravity="center_horizontal"
         android:padding="30dp"
-        android:shadowColor="#FF9800"
-        android:shadowDx="3.0"
-        android:shadowDy="3.0"
+        android:shadowColor="@color/white"
+        android:shadowDx="0.0"
+        android:shadowDy="0.0"
         android:shadowRadius="3.0"
         android:text="New Visit"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="40sp"
-        android:textStyle="bold"
-
-        />
-
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/title_text"
@@ -30,8 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="50dp"
         android:gravity="center"
-        android:hint="insert a title"
-        />
+        android:hint="insert a title" />
 
     <TextView
         android:id="@+id/explain_text"
@@ -49,7 +44,5 @@
         android:layout_margin="80dp"
         android:text="START"
         android:textSize="25sp" />
-
-
 
 </LinearLayout>
