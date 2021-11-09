@@ -15,12 +15,14 @@
         android:layout_width="530dp"
         android:layout_height="match_parent"
         tools:ignore="MissingConstraints">
+
         <ImageView
             android:id="@+id/detail_imageView4"
             android:layout_width="530dp"
             android:layout_height="match_parent"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
     </FrameLayout>
+
     <LinearLayout
         android:layout_marginRight="0dp"
         android:layout_width="200dp"
@@ -29,6 +31,7 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="529dp"
         tools:layout_editor_absoluteY="-16dp">
+
         <TextView
             android:id="@+id/detail_title"
             android:layout_width="wrap_content"
@@ -37,6 +40,7 @@
             android:text="Title"
             android:textColor="@color/black"
             android:textSize="20sp" />
+
         <TextView
             android:id="@+id/detail_text_title"
             android:layout_width="wrap_content"
@@ -46,6 +50,7 @@
             android:text="title"
             android:textColor="@color/orange"
             android:textSize="18sp" />
+
         <TextView
             android:id="@+id/detail_date"
             android:layout_width="wrap_content"
@@ -53,6 +58,7 @@
             android:text="Date"
             android:textColor="@color/black"
             android:textSize="20sp" />
+
         <TextView
             android:id="@+id/detail_text_date"
             android:layout_width="wrap_content"
@@ -62,6 +68,7 @@
             android:text="date"
             android:textColor="@color/orange"
             android:textSize="18sp" />
+
         <TextView
             android:id="@+id/detail_description"
             android:layout_width="wrap_content"
@@ -69,6 +76,7 @@
             android:text="Description"
             android:textColor="@color/black"
             android:textSize="20sp" />
+
         <TextView
             android:id="@+id/detail_text_description"
             android:layout_width="wrap_content"
@@ -79,6 +87,7 @@
             android:textColor="@color/orange"
             android:textSize="18sp" />
     </LinearLayout>
+
     <Button
         android:id="@+id/detail_changebutton"
         tools:layout_editor_absoluteX="630dp"
