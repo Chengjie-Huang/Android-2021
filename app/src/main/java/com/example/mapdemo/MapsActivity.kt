@@ -7,6 +7,7 @@ import android.animation.Animator.AnimatorListener
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.widget.Toast
 import android.location.Location
@@ -62,6 +63,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
             showButtonList(buttonList)
             mainButton.text = if(mainButtonClicks % 2 == 0) "-" else "+"
             mainButtonClicks += 1
+        visitButton.setOnClickListener {
+            val intent = Intent(MapsActivity@this,VisitActivity::class.java)
+            startActivity(intent)
+        }
         })
     }
 
@@ -200,4 +205,5 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
         private var mainButtonClicks = 0
         private const val BUTTON_Y_OFF_AXIS = 120
     }
+
 }
