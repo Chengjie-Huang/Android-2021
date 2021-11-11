@@ -2,6 +2,8 @@
     <string name="app_name">MapDemo</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="main_list_button_text">+</string>
+    <string name="visit_activity_label">VisitActivity</string>
+    <string name="second_visit_activity_label">SecondVisitActivity</string>
 
     <!-- Permissions -->
     <string name="permission_rationale_location">Access to the location service is required to demonstrate the \'my location\' feature, which shows your current location on the map.</string>

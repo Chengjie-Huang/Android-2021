@@ -1,5 +1,6 @@
 package com.example.mapdemo
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -18,5 +19,9 @@ class VisitActivity : AppCompatActivity() {
         val explainText = findViewById<TextView>(R.id.explain_text)
         val startButton = findViewById<Button>(R.id.start_button)
 
+        startButton.setOnClickListener {
+            val intent = Intent(this, SecondVisitActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

@@ -3,7 +3,6 @@ package com.example.mapdemo
 import android.os.Bundle
 import android.Manifest
 import android.animation.Animator
-import android.animation.Animator.AnimatorListener
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
@@ -17,15 +16,10 @@ import android.widget.RelativeLayout
 
 import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.animation.addListener
-import androidx.core.app.ActivityCompat
 
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener
 import com.google.android.gms.maps.GoogleMap.OnMyLocationClickListener
 import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
@@ -60,22 +54,23 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
         val visitButton = findViewById<Button>(R.id.visit_button)
         val buttonList: Array<Button> = arrayOf<Button>(searchButton, visitButton)
         mainButton.setOnClickListener(View.OnClickListener {
-            showButtonList(buttonList)
-            mainButton.text = if(mainButtonClicks % 2 == 0) "-" else "+"
+            showButtonList(buttonList, mainButton)
+            mainButton.text = if (mainButtonClicks % 2 == 0) "-" else "+"
             mainButtonClicks += 1
+        })
         visitButton.setOnClickListener {
-            val intent = Intent(MapsActivity@this,VisitActivity::class.java)
+            val intent = Intent(this,VisitActivity::class.java)
             startActivity(intent)
         }
-        })
     }
 
     /**
      * Show the main button list by animation.
      */
     @SuppressLint("Recycle")
-    private fun showButtonList(buttonList: Array<Button>) {
+    private fun showButtonList(buttonList: Array<Button>, mainButton: Button) {
         var i = 1
+        val mainButtonY = mainButton.y
         for (button in buttonList) {
             val objAnimatorY: ObjectAnimator
             if (mainButtonClicks % 2 == 0) {
@@ -84,7 +79,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
                     button.y - i * BUTTON_Y_OFF_AXIS)
             } else {
                 objAnimatorY = ObjectAnimator.ofFloat(button, "y", button.y,
-                    button.y + i * BUTTON_Y_OFF_AXIS)
+                    button.y + (mainButtonY - button.y))
                 objAnimatorY.addListener(object: AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator?) {
                         button.visibility = View.GONE
@@ -105,12 +100,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
         val locationButton = (mapView.findViewById<View>(Integer.parseInt("1")).parent
                 as View).findViewById<View>(Integer.parseInt("2"))
         val locationButtonLayout = locationButton.layoutParams as (RelativeLayout.LayoutParams)
-        // position on right bottom
+        // Position on left bottom
         locationButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
         locationButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE)
         locationButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0)
         locationButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
-
         locationButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_END, 0)
         locationButtonLayout.addRule(RelativeLayout.ALIGN_END, 0)
         locationButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_LEFT)
@@ -202,8 +196,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
          * @see .onRequestPermissionsResult
          */
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
-        private var mainButtonClicks = 0
+        internal var mainButtonClicks = 0
         private const val BUTTON_Y_OFF_AXIS = 120
     }
-
 }
