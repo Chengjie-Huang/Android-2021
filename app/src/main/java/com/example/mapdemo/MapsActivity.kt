@@ -59,7 +59,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
             mainButtonClicks += 1
         })
         visitButton.setOnClickListener {
-            val intent = Intent(this,VisitActivity::class.java)
+            val intent = Intent(this, VisitActivity::class.java)
             startActivity(intent)
         }
     }
