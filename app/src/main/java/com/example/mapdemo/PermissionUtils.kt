@@ -113,16 +113,17 @@ object PermissionUtils {
     class RationaleDialog : DialogFragment() {
         private var finishActivity = false
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+            // requestCode must be equal to one of PermissionCode
             val requestCode =
                 arguments?.getInt(ARGUMENT_PERMISSION_REQUEST_CODE) ?: 0
             finishActivity =
                 arguments?.getBoolean(ARGUMENT_FINISH_ACTIVITY) ?: false
             return AlertDialog.Builder(activity)
-                .setMessage(R.string.permission_rationale_location)
-                .setPositiveButton(android.R.string.ok) { dialog, which -> // After click on Ok, request the permission.
+                .setMessage(permissionAlertMessage[requestCode])
+                .setPositiveButton(android.R.string.ok) { _, _ -> // After click on Ok, request the permission.
                     ActivityCompat.requestPermissions(
                         requireActivity(),
-                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        arrayOf(systemPermissionCode[requestCode]),
                         requestCode
                     )
                     // Do not finish the Activity while requesting permission.
@@ -148,6 +149,19 @@ object PermissionUtils {
             private const val ARGUMENT_PERMISSION_REQUEST_CODE = "requestCode"
             private const val ARGUMENT_FINISH_ACTIVITY = "finish"
 
+            val systemPermissionCode = arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA,
+            )
+
+            val permissionAlertMessage = arrayOf(
+                R.string.permission_rationale_location,
+                R.string.permission_rationale_read,
+                R.string.permission_rationale_write,
+                R.string.permission_rationale_camera,
+            )
             /**
              * Creates a new instance of a dialog displaying the rationale for the use of the location
              * permission.

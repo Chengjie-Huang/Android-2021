@@ -26,6 +26,7 @@ import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
 
 import com.example.mapdemo.databinding.ActivityMapsBinding
 import com.example.mapdemo.PermissionUtils.PermissionDeniedDialog.Companion.newInstance
+import com.example.mapdemo.PermissionUtils.RationaleDialog.Companion.systemPermissionCode
 import com.example.mapdemo.PermissionUtils.isPermissionGranted
 import com.example.mapdemo.PermissionUtils.requestPermission
 
@@ -34,7 +35,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
 
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityMapsBinding
-    private var permissionDenied = false
+    private var locatePermissionDenied = false
+    private var readPermissionDenied = false
+    private var writePermissionDenied = false
+    private var cameraPermissionDenied = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,19 +116,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
     }
 
     /**
-     * Enables the My Location layer if the fine location permission has been granted.
+     * Enable four permissions:
+     * 1. Self Location
+     * 2. Reading external storage
+     * 3. Writing external storage
+     * 4. Camera
      */
-    @SuppressLint("MissingPermission")
-    private fun enableMyLocation() {
+    private fun enableAllPermission() {
         if (!::map.isInitialized) return
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED) {
-            map.isMyLocationEnabled = true
-        } else {
-            // Permission to access the location is missing. Show rationale and request permission
-            requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
-                Manifest.permission.ACCESS_FINE_LOCATION, true
-            )
+        for ((i, code) in PermissionCode.values().withIndex()) {
+            if (ContextCompat.checkSelfPermission(this, systemPermissionCode[i]) !=
+                PackageManager.PERMISSION_GRANTED
+            ) {
+                requestPermission(this, code.ordinal, systemPermissionCode[i], true)
+            } else if (code == PermissionCode.LOCATION) {
+                map.isMyLocationEnabled = true
+            }
         }
     }
 
@@ -139,29 +146,30 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
         Toast.makeText(this, "Current location:\n$location", Toast.LENGTH_LONG).show()
     }
 
+    @SuppressLint("MissingPermission")
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
                                             grantResults: IntArray) {
-        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
+        if (requestCode != PermissionCode.LOCATION.ordinal) {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
             return
         }
         if (isPermissionGranted(permissions, grantResults,
                 Manifest.permission.ACCESS_FINE_LOCATION)) {
             // Enable the my location layer if the permission has been granted.
-            enableMyLocation()
+            map.isMyLocationEnabled = true
         } else {
             // Permission was denied. Display an error message
             // Display the missing permission error dialog when the fragments resume.
-            permissionDenied = true
+            locatePermissionDenied = true
         }
     }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        if (permissionDenied) {
+        if (locatePermissionDenied) {
             // Permission was not granted, display error dialog.
             showMissingPermissionError()
-            permissionDenied = false
+            locatePermissionDenied = false
         }
     }
 
@@ -183,8 +191,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
      */
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap ?: return
-
-        enableMyLocation()
+        enableAllPermission()
         googleMap.setOnMyLocationButtonClickListener(this)
         googleMap.setOnMyLocationClickListener(this)
     }
@@ -195,7 +202,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
          *
          * @see .onRequestPermissionsResult
          */
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+        enum class PermissionCode {
+            LOCATION, READ, WRITE, CAMERA
+        }
         private var mainButtonClicks = 0
         private const val BUTTON_Y_OFF_AXIS = 120
     }
