@@ -196,7 +196,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
          * @see .onRequestPermissionsResult
          */
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
-        internal var mainButtonClicks = 0
+        private var mainButtonClicks = 0
         private const val BUTTON_Y_OFF_AXIS = 120
     }
 }
