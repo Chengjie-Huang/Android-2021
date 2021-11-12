@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Button
 import androidx.core.content.FileProvider
+import com.google.android.gms.maps.GoogleMap
 import java.io.File
 import java.io.IOException
 
@@ -16,6 +17,7 @@ class SecondVisitActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.visit_second)
+
 
         val stopButton = findViewById<Button>(R.id.stop_button)
         /*
