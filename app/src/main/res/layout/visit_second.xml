@@ -8,7 +8,7 @@
     tools:context=".MapsActivity" >
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/visit_second_button"
+        android:id="@+id/photo_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:insetBottom="0dp"

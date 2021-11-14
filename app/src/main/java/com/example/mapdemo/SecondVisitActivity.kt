@@ -46,7 +46,6 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.visit_second)
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -58,7 +57,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         // Operation when clicking on the main list button
         val mainButton = findViewById<Button>(R.id.main_list_second_button)
         val searchButton = findViewById<Button>(R.id.search_second_button)
-        val photoButton = findViewById<Button>(R.id.visit_second_button)
+        val photoButton = findViewById<Button>(R.id.photo_button)
         val buttonList: Array<Button> = arrayOf<Button>(searchButton, photoButton)
         mainButton.setOnClickListener(View.OnClickListener {
             showButtonList(buttonList, mainButton)
