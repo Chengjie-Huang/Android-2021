@@ -1,35 +1,74 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="UTF-8" ?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".SecondVisitActivity" >
 
-    <Button
-        android:id="@+id/stop_button"
-        android:layout_width="150dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="400dp"
-        android:backgroundTint="@color/purple_500"
-        android:text="STOP"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.658" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/photo_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:insetBottom="0dp"
+        android:insetLeft="0dp"
+        android:insetRight="0dp"
+        android:insetTop="0dp"
+        app:cornerRadius="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="4dp"
+        app:backgroundTint="@color/white"
+        android:text="@string/main_list_button_text"
+        android:textColor="@color/black"
+        android:visibility="invisible"
+        android:textSize="15sp" />
 
-   <Button
-       android:id="@+id/camera_button"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="camera"
-       android:textSize="25sp"
-       app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toTopOf="parent"
-       app:layout_constraintVertical_bias="0.658" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/search_second_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:insetBottom="0dp"
+        android:insetLeft="0dp"
+        android:insetRight="0dp"
+        android:insetTop="0dp"
+        app:cornerRadius="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="4dp"
+        app:backgroundTint="@color/white"
+        android:text="@string/main_list_button_text"
+        android:textColor="@color/black"
+        android:visibility="invisible"
+        android:textSize="15sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/main_list_second_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:insetBottom="0dp"
+        android:insetLeft="0dp"
+        android:insetRight="0dp"
+        android:insetTop="0dp"
+        app:cornerRadius="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="4dp"
+        app:backgroundTint="@color/white"
+        android:text="@string/main_list_button_text"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+<!--        <include layout="@layout/preview_photo_list" />-->
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</RelativeLayout>
