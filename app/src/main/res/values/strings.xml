@@ -4,6 +4,9 @@
     <string name="main_list_button_text">+</string>
     <string name="visit_activity_label">VisitActivity</string>
     <string name="second_visit_activity_label">SecondVisitActivity</string>
+    <string name="search_activity_label">SearchLayout</string>
+    <string name="detail_activity_label">DetailLayout</string>
+    <string name="photos_activity_label">PhotosLayout</string>
 
     <!-- Permissions -->
     <string name="permission_rationale_location">Location permission is required.</string>

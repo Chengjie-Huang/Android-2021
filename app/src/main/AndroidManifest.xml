@@ -76,6 +76,39 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".SearchActivity"
+            android:exported="true"
+            android:label="@string/search_activity_label">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".DetailActivity"
+            android:exported="true"
+            android:label="@string/detail_activity_label">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".PhotosActivity"
+            android:exported="true"
+            android:label="@string/photos_activity_label">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
