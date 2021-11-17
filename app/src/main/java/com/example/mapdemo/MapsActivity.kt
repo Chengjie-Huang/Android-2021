@@ -29,6 +29,9 @@ import com.example.mapdemo.PermissionUtils.PermissionDeniedDialog.Companion.newI
 import com.example.mapdemo.PermissionUtils.RationaleDialog.Companion.systemPermissionCode
 import com.example.mapdemo.PermissionUtils.isPermissionGranted
 import com.example.mapdemo.PermissionUtils.requestPermission
+import com.example.mapdemo.data.ImageData
+import kotlinx.coroutines.*
+import pl.aprilapps.easyphotopicker.MediaFile
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButtonClickListener,
     OnMyLocationClickListener, OnRequestPermissionsResultCallback {
