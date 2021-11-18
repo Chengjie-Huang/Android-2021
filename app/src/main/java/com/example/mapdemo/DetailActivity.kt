@@ -7,11 +7,11 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
-class DetailActivity : AppCompatActivity(){
+class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_layout_main)
 
-        val changeButton = findViewById<Button>(R.id.detail_changebutton)
+        val changeButton = findViewById<Button>(R.id.detail_change_button)
     }
 }

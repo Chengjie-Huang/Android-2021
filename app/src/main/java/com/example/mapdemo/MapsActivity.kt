@@ -66,7 +66,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
             val intent = Intent(this, VisitActivity::class.java)
             startActivity(intent)
         }
-        searchButton.setOnClickListener { searchButtonClick() }
+        searchButton.setOnClickListener {
+            startActivity( Intent(this, SearchActivity().javaClass))
+            //Jump to the search page
+        }
+
     }
 
     /**
@@ -208,12 +212,5 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
         }
         private var mainButtonClicks = 0
         private const val BUTTON_Y_OFF_AXIS = 120
-    }
-
-    private fun searchButtonClick() {
-        startActivity( Intent(this, SearchActivity().javaClass))
-        /*
-         *Jump to the search page
-         */
     }
 }

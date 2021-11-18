@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <FrameLayout
-            android:id="@+id/frameLayout3"
+            android:id="@+id/detail_frameLayout_photo"
             android:layout_width="530dp"
             android:layout_height="match_parent"
             tools:ignore="MissingConstraints">
@@ -86,7 +86,7 @@
         </LinearLayout>
     </LinearLayout>
     <Button
-        android:id="@+id/detail_changebutton"
+        android:id="@+id/detail_change_button"
         android:layout_width="78dp"
         android:layout_height="32dp"
         android:text="change"
