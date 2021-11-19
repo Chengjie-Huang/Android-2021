@@ -18,12 +18,15 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import android.provider.MediaStore
+import pl.aprilapps.easyphotopicker.ChooserType
+import pl.aprilapps.easyphotopicker.EasyImage
 
 class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickListener,
     GoogleMap.OnMyLocationButtonClickListener, OnMapReadyCallback {
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityMapsBinding
     var imageUri: Uri? = null
+    private lateinit var easyImage: EasyImage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +38,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         mapFragment.getMapAsync(this)
         changeLocationButtonPosition(mapFragment)
 
+        initEasyImage()
         // Operation when clicking on the main list button
         val mainButton = findViewById<Button>(R.id.main_list_second_button)
         val searchButton = findViewById<Button>(R.id.search_second_button)
@@ -46,11 +50,18 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
             SecondVisitActivity.mainButtonClicks += 1
         })
         photoButton.setOnClickListener(View.OnClickListener {
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-
-            startActivityForResult(intent, 200)
+            easyImage.openChooser(this@SecondVisitActivity)
         })
+    }
 
+    private fun initEasyImage() {
+        easyImage = EasyImage.Builder(this)
+            .setChooserTitle("Pick media")
+            .setFolderName("EasyImage sample")
+            .setChooserType(ChooserType.CAMERA_AND_GALLERY)
+            .allowMultiple(true)
+            .setCopyImagesToPublicGalleryFolder(true)
+            .build()
     }
 
     private fun changeLocationButtonPosition(mapFragment: SupportMapFragment) {
