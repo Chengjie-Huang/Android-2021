@@ -57,57 +57,27 @@
         <activity
             android:name=".VisitActivity"
             android:exported="true"
-            android:label="@string/visit_activity_label">
-            <intent-filter>
-                <action android:name="com.example.mapdemo.action.VISITACTIVITY" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:label="@string/visit_activity_label" />
 
         <activity
             android:name=".SecondVisitActivity"
             android:exported="true"
-            android:label="@string/second_visit_activity_label">
-            <intent-filter>
-                <action android:name="com.example.mapdemo.action.SECONDVISITACTIVITY"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
+            android:label="@string/second_visit_activity_label" />
 
         <activity
             android:name=".SearchActivity"
             android:exported="true"
-            android:label="@string/search_activity_label">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:label="@string/search_activity_label" />
 
         <activity
             android:name=".DetailActivity"
             android:exported="true"
-            android:label="@string/detail_activity_label">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:label="@string/detail_activity_label" />
 
         <activity
             android:name=".PhotosActivity"
             android:exported="true"
-            android:label="@string/photos_activity_label">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:label="@string/photos_activity_label" />
 
     </application>
 
