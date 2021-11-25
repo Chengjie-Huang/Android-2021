@@ -12,11 +12,20 @@ import androidx.room.Update
  */
 @Dao
 interface ImageDataDao {
-    @Query("SELECT * from image ORDER by id ASC")
-    suspend fun getItems(): List<ImageData>
+    @Query("SELECT * from image ORDER BY id ASC")
+    fun getItems(): List<ImageData>
 
     @Query("SELECT * from image WHERE id = :id")
     fun getItem(id: Int): ImageData
+
+    @Query("SELECT * from image WHERE title LIKE :title")
+    fun getItemsByTitle(title: String): List<ImageData>
+
+    @Query("SELECT * from image WHERE date LIKE :date")
+    fun getItemsByDate(date: String): List<ImageData>
+
+    @Query("SELECT * from image WHERE title LIKE :title and date LIKE :date")
+    fun getItemsByTitleAndDate(title: String, date: String): List<ImageData>
 
     // Specify the conflict strategy as REPLACE,
     // when the trying to add an existing Item
