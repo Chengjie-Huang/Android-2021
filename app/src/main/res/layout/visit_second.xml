@@ -8,7 +8,7 @@
     tools:context=".SecondVisitActivity" >
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/photo_button"
+        android:id="@+id/stop_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:insetBottom="0dp"
@@ -27,7 +27,7 @@
         android:textSize="15sp" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/search_second_button"
+        android:id="@+id/start_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:insetBottom="0dp"
@@ -63,7 +63,16 @@
         android:textColor="@color/black"
         android:textSize="15sp" />
 
-<!--        <include layout="@layout/preview_photo_list" />-->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/photo_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@color/white"
+        android:text="+"
+        android:textColor="@color/black"
+        android:textSize="15sp"/>
+
+    <!--        <include layout="@layout/preview_photo_list" />-->
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
