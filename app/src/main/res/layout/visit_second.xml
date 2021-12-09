@@ -74,7 +74,7 @@
 
     <!--        <include layout="@layout/preview_photo_list" />-->
     <fragment
-        android:id="@+id/map"
+        android:id="@+id/map_second"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
