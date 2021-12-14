@@ -18,8 +18,10 @@ class VisitActivity : AppCompatActivity() {
         val editView = findViewById<EditText>(R.id.title_text)
         val explainText = findViewById<TextView>(R.id.explain_text)
         val startButton = findViewById<Button>(R.id.start_button)
+        val mNew: EditText = findViewById(R.id.title_text)
 
         startButton.setOnClickListener {
+            val m_New_text = mNew.text
             val intent = Intent(this, SecondVisitActivity::class.java)
             startActivity(intent)
         }

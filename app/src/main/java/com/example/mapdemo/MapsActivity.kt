@@ -30,6 +30,7 @@ import com.example.mapdemo.PermissionUtils.RationaleDialog.Companion.systemPermi
 import com.example.mapdemo.PermissionUtils.isPermissionGranted
 import com.example.mapdemo.PermissionUtils.requestPermission
 import com.example.mapdemo.data.ImageData
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.*
 import pl.aprilapps.easyphotopicker.MediaFile
 
@@ -56,13 +57,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
         changeLocationButtonPosition(mapFragment)
 
         // Operation when clicking on the main list button
-        val mainButton = findViewById<Button>(R.id.main_list_button)
-        val searchButton = findViewById<Button>(R.id.search_button)
-        val visitButton = findViewById<Button>(R.id.visit_button)
-        val buttonList: Array<Button> = arrayOf<Button>(searchButton, visitButton)
+        val mainButton = findViewById<FloatingActionButton>(R.id.main_list_button)
+        val searchButton = findViewById<FloatingActionButton>(R.id.search_button)
+        val visitButton = findViewById<FloatingActionButton>(R.id.visit_button)
+        val buttonList: Array<FloatingActionButton> = arrayOf<FloatingActionButton>(searchButton, visitButton)
         mainButton.setOnClickListener(View.OnClickListener {
             showButtonList(buttonList, mainButton)
-            mainButton.text = if (mainButtonClicks % 2 == 0) "-" else "+"
+            mainButton.contentDescription = if (mainButtonClicks % 2 == 0) "-" else "+"
             mainButtonClicks += 1
         })
         visitButton.setOnClickListener {
@@ -80,8 +81,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
      * Show the main button list by animation.
      */
     @SuppressLint("Recycle")
-    private fun showButtonList(buttonList: Array<Button>, mainButton: Button) {
-        var i = 1
+    private fun showButtonList(buttonList: Array<FloatingActionButton>, mainButton: FloatingActionButton) {
+        var i = 2
         val mainButtonY = mainButton.y
         for (button in buttonList) {
             val objAnimatorY: ObjectAnimator
@@ -100,7 +101,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
             }
             objAnimatorY.startDelay = 10
             objAnimatorY.start()
-            i += 1
+            i += 2
         }
     }
 
