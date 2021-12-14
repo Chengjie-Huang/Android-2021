@@ -7,10 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".SecondVisitActivity" >
 
-    <com.google.android.material.button.MaterialButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/stop_button"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:insetBottom="0dp"
         android:insetLeft="0dp"
         android:insetRight="0dp"
@@ -20,58 +20,52 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="4dp"
-        app:backgroundTint="@color/white"
-        android:text="@string/main_list_button_text"
-        android:textColor="@color/black"
-        android:visibility="invisible"
-        android:textSize="15sp" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/start_button"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:insetBottom="0dp"
-        android:insetLeft="0dp"
-        android:insetRight="0dp"
-        android:insetTop="0dp"
-        app:cornerRadius="60dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="4dp"
-        app:backgroundTint="@color/white"
-        android:text="@string/main_list_button_text"
-        android:textColor="@color/black"
-        android:visibility="invisible"
-        android:textSize="15sp" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/main_list_second_button"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:insetBottom="0dp"
-        android:insetLeft="0dp"
-        android:insetRight="0dp"
-        android:insetTop="0dp"
-        app:cornerRadius="60dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="4dp"
-        app:backgroundTint="@color/white"
-        android:text="@string/main_list_button_text"
-        android:textColor="@color/black"
-        android:textSize="15sp" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/photo_button"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:src="@drawable/ic_baseline_pause_24"
         android:backgroundTint="@color/white"
-        android:text="+"
-        android:textColor="@color/black"
-        android:textSize="15sp"/>
+        android:visibility="invisible"
+        />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/start_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:insetBottom="0dp"
+        android:insetLeft="0dp"
+        android:insetRight="0dp"
+        android:insetTop="0dp"
+        app:cornerRadius="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="4dp"
+        android:visibility="invisible"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/ic_baseline_play_arrow_24" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/main_list_second_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:insetBottom="0dp"
+        android:insetLeft="0dp"
+        android:insetRight="0dp"
+        android:insetTop="0dp"
+        app:cornerRadius="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="4dp"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/ic_baseline_add_24"
+        android:contentDescription="+"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/photo_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/ic_baseline_camera_alt_24"
+    />
     <!--        <include layout="@layout/preview_photo_list" />-->
     <fragment
         android:id="@+id/map"

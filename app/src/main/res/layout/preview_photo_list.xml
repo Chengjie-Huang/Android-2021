@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:orientation="horizontal"
-    android:id="@+id/preview_photo"
-    tools:showIn="@layout/activity_maps">
+    android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/image_item"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="150dp"
+        android:padding="10dp" />
 
-</androidx.recyclerview.widget.RecyclerView>
+</LinearLayout>
