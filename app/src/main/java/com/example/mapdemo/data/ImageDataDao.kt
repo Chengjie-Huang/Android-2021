@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import androidx.lifecycle.LiveData
 
 /**
  * Database access object to access the Inventory database
@@ -13,29 +14,32 @@ import androidx.room.Update
 @Dao
 interface ImageDataDao {
     @Query("SELECT * from image ORDER BY id ASC")
-    fun getItems(): List<ImageData>
+    fun getItems(): LiveData<List<ImageData>?>?
 
     @Query("SELECT * from image WHERE id = :id")
-    fun getItem(id: Int): ImageData
+    fun getItem(id: Int): LiveData<ImageData>
 
     @Query("SELECT * from image WHERE title LIKE :title")
-    fun getItemsByTitle(title: String): List<ImageData>
+    fun getItemsByTitle(title: String): LiveData<List<ImageData>?>?
 
     @Query("SELECT * from image WHERE date LIKE :date")
-    fun getItemsByDate(date: String): List<ImageData>
+    fun getItemsByDate(date: String): LiveData<List<ImageData>>
 
     @Query("SELECT * from image WHERE title LIKE :title and date LIKE :date")
-    fun getItemsByTitleAndDate(title: String, date: String): List<ImageData>
+    fun getItemsByTitleAndDate(title: String, date: String): LiveData<List<ImageData>>
 
     // Specify the conflict strategy as REPLACE,
     // when the trying to add an existing Item
     // into the database.
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(singleImageData: ImageData): Long
+    fun insert(singleImageData: ImageData): Long
 
     @Update
     suspend fun update(imageData: ImageData)
 
     @Delete
-    suspend fun delete(imageData: ImageData)
+    fun delete(imageData: ImageData?)
+
+    @Delete
+    fun deleteAll(vararg imageData: ImageData?)
 }

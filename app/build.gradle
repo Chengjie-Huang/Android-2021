@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.google.devtools.ksp' version '1.5.31-1.0.0'
     id 'kotlin-kapt'
 }
 
@@ -51,6 +52,10 @@ dependencies {
     // Coroutine libs
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    // Kotlin symbolic processing lib
+    implementation "com.google.devtools.ksp:symbol-processing-api:$ksp_version"
+    // Lifecycle lib
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     // Room libs
     implementation "androidx.room:room-runtime:$room_version"
     implementation 'com.google.android.gms:play-services-location:18.0.0'

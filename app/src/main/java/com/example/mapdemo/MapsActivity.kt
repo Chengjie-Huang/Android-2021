@@ -70,7 +70,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
             startActivity(intent)
         }
         searchButton.setOnClickListener {
-            startActivity( Intent(this, SearchActivity().javaClass))
+            startActivity( Intent(this, SearchActivity::class.java))
             //Jump to the search page
         }
 

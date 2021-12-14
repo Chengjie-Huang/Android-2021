@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.SupportMapFragment
 
 class VisitActivity : AppCompatActivity() {
@@ -21,6 +22,7 @@ class VisitActivity : AppCompatActivity() {
 
         startButton.setOnClickListener {
             val intent = Intent(this, SecondVisitActivity::class.java)
+            intent.putExtra("title", visitText.text)
             startActivity(intent)
         }
     }
