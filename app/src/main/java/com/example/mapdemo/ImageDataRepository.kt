@@ -34,8 +34,8 @@ class ImageDataRepository(application: Application) {
                     for(param in params){
                         val insertedId: Int? = this@InsertAsyncTask.dao?.insert(param)?.toInt()
                         // you may want to check if insertedId is null to confirm successful insertion
-                        //Log.i("MyRepository", "number generated: " + param.number.toString()
-                        //        + ", inserted with id: " + insertedId.toString() + "")
+                        Log.i("MyRepository", "image uri: " + param.imageUri
+                                + ", inserted with id: " + insertedId.toString() + "")
                     }
                 }
             }

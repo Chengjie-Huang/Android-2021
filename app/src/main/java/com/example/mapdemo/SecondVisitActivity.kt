@@ -5,6 +5,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.net.Uri
@@ -16,17 +17,20 @@ import android.widget.RelativeLayout
 import android.widget.Toast
 import com.example.mapdemo.databinding.ActivityMapsBinding
 import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import pl.aprilapps.easyphotopicker.ChooserType
-import pl.aprilapps.easyphotopicker.EasyImage
 import java.text.DateFormat
 import java.util.*
 import com.google.android.gms.location.LocationRequest
+import pl.aprilapps.easyphotopicker.*
+
+import com.example.mapdemo.data.ImageData
 
 class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickListener,
     GoogleMap.OnMyLocationButtonClickListener, OnMapReadyCallback {
@@ -39,6 +43,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
     private val mapView: MapView? = null
     private var mButtonStart: Button? = null
     private var mButtonEnd: Button? = null
+    private var mViewModel: ImageDataViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +55,13 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         mapFragment.getMapAsync(this)
         changeLocationButtonPosition(mapFragment)
 
+        // Obtain the value of title from the last activity
+//        var bundle = this.intent.extras
+//        var title : String = bundle?.get("title").toString()
+
         initEasyImage()
+        this.mViewModel = ViewModelProvider(this)[ImageDataViewModel::class.java]
+
         // Operation when clicking on the main list button
         val mainButton = findViewById<Button>(R.id.main_list_second_button)
         val startButton = findViewById<Button>(R.id.start_button)
@@ -74,39 +85,8 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         })
     }
 
+    @SuppressLint("MissingPermission")
     private fun startLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    this,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                )
-            ) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-            } else {
-
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(
-                    this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    ACCESS_FINE_LOCATION
-                )
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
-            return
-        }
         mFusedLocationClient.requestLocationUpdates(
             mLocationRequest,
             mLocationCallback,
@@ -120,12 +100,13 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
     private fun stopLocationUpdates() {
         mFusedLocationClient.removeLocationUpdates(mLocationCallback)
     }
+
     override fun onResume() {
         super.onResume()
-        mLocationRequest = com.google.android.gms.location.LocationRequest.create().apply {
+        mLocationRequest = LocationRequest.create().apply {
             interval = 1000
             fastestInterval = 5000
-            priority = com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         startLocationUpdates()
@@ -155,35 +136,6 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
                     ), 14.0f
                 )
             )
-        }
-    }
-    @SuppressLint("MissingPermission")
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>, grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            ACCESS_FINE_LOCATION -> {
-
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.isNotEmpty()
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                ) {
-
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-                    mFusedLocationClient.requestLocationUpdates(
-                        mLocationRequest,
-                        mLocationCallback, null /* Looper */
-                    )
-                } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
-                return
-            }
         }
     }
 
@@ -272,10 +224,58 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         googleMap.setOnMyLocationClickListener(this)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        easyImage.handleActivityResult(requestCode, resultCode, data, this,
+            object : DefaultCallback() {
+                override fun onMediaFilesPicked(imageFiles: Array<MediaFile>, source: MediaSource) {
+                    onPhotosReturned(imageFiles)
+                }
+
+                override fun onImagePickerError(error: Throwable, source: MediaSource) {
+                    super.onImagePickerError(error, source)
+                }
+
+                override fun onCanceled(source: MediaSource) {
+                    super.onCanceled(source)
+                }
+            }
+        )
+    }
+
+    /**
+     * add the selected images to the database
+     * @param returnedPhotos
+     */
+    @SuppressLint("NotifyDataSetChanged")
+    private fun onPhotosReturned(returnedPhotos: Array<MediaFile>) {
+        getImageData(returnedPhotos)
+    }
+
+    /**
+     * given a list of photos, it creates a list of ImageData objects
+     * we do not know how many elements we will have
+     * @param returnedPhotos
+     * @return
+     */
+    private fun getImageData(returnedPhotos: Array<MediaFile>) {
+        val imageDataList: MutableList<ImageData> = ArrayList<ImageData>()
+        for (mediaFile in returnedPhotos) {
+            val fileNameAsTempTitle = mediaFile.file.name
+            var imageData = ImageData(
+                imageTitle = fileNameAsTempTitle,
+                imageUri = mediaFile.file.absolutePath
+            )
+            // Update the database with the newly created object
+//            var id = insertData(imageData)
+            this.mViewModel!!.insertNewImageData(imageData)
+        }
+
+    }
 
     companion object {
         private var mainButtonClicks = 0
         private const val BUTTON_Y_OFF_AXIS = 120
-        private const val ACCESS_FINE_LOCATION = 123
     }
 }
