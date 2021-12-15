@@ -71,8 +71,6 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         val buttonList: Array<FloatingActionButton> = arrayOf<FloatingActionButton>(stopButton, startButton)
         mainButton.setOnClickListener(View.OnClickListener {
             showButtonList(buttonList, mainButton)
-            mainButton.contentDescription = if (SecondVisitActivity.mainButtonClicks % 2 == 0) "-" else "+"
-            SecondVisitActivity.mainButtonClicks += 1
         })
 
         photoButton.setOnClickListener(View.OnClickListener {
@@ -170,7 +168,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
      */
     @SuppressLint("Recycle")
     private fun showButtonList(buttonList: Array<FloatingActionButton>, mainButton: FloatingActionButton) {
-        var i = 2
+        var i = 1
         val mainButtonY = mainButton.y
         for (button in buttonList) {
             val objAnimatorY: ObjectAnimator
@@ -193,7 +191,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
             }
             objAnimatorY.startDelay = 10
             objAnimatorY.start()
-            i += 2
+            i += 1
         }
     }
 
@@ -277,6 +275,6 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
 
     companion object {
         private var mainButtonClicks = 0
-        private const val BUTTON_Y_OFF_AXIS = 120
+        private const val BUTTON_Y_OFF_AXIS = 180
     }
 }

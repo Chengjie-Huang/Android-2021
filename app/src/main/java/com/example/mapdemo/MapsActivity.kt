@@ -63,8 +63,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
         val buttonList: Array<FloatingActionButton> = arrayOf<FloatingActionButton>(searchButton, visitButton)
         mainButton.setOnClickListener(View.OnClickListener {
             showButtonList(buttonList, mainButton)
-            mainButton.contentDescription = if (mainButtonClicks % 2 == 0) "-" else "+"
-            mainButtonClicks += 1
         })
         visitButton.setOnClickListener {
             val intent = Intent(this, VisitActivity::class.java)
@@ -82,7 +80,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
      */
     @SuppressLint("Recycle")
     private fun showButtonList(buttonList: Array<FloatingActionButton>, mainButton: FloatingActionButton) {
-        var i = 2
+        var i = 1
         val mainButtonY = mainButton.y
         for (button in buttonList) {
             val objAnimatorY: ObjectAnimator
@@ -101,7 +99,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
             }
             objAnimatorY.startDelay = 10
             objAnimatorY.start()
-            i += 2
+            i += 1
         }
     }
 
@@ -215,6 +213,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
             LOCATION, READ, WRITE, CAMERA
         }
         private var mainButtonClicks = 0
-        private const val BUTTON_Y_OFF_AXIS = 120
+        private const val BUTTON_Y_OFF_AXIS = 180
     }
 }
