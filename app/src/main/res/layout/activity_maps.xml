@@ -7,10 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".MapsActivity" >
 
-    <com.google.android.material.button.MaterialButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/visit_button"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:insetBottom="0dp"
         android:insetLeft="0dp"
         android:insetRight="0dp"
@@ -21,15 +21,13 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="4dp"
         app:backgroundTint="@color/white"
-        android:text="@string/main_list_button_text"
-        android:textColor="@color/black"
-        android:visibility="invisible"
-        android:textSize="15sp" />
+        android:src="@drawable/ic_baseline_directions_walk_24"
+        android:visibility="invisible"/>
 
-    <com.google.android.material.button.MaterialButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/search_button"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:insetBottom="0dp"
         android:insetLeft="0dp"
         android:insetRight="0dp"
@@ -39,16 +37,15 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="4dp"
+        android:src="@drawable/ic_baseline_search_24"
         app:backgroundTint="@color/white"
-        android:text="@string/main_list_button_text"
         android:textColor="@color/black"
-        android:visibility="invisible"
-        android:textSize="15sp" />
+        android:visibility="invisible"/>
 
-    <com.google.android.material.button.MaterialButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/main_list_button"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:insetBottom="0dp"
         android:insetLeft="0dp"
         android:insetRight="0dp"
@@ -58,12 +55,11 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="4dp"
+        android:src="@drawable/ic_baseline_add_24"
         app:backgroundTint="@color/white"
-        android:text="@string/main_list_button_text"
-        android:textColor="@color/black"
-        android:textSize="15sp" />
+        android:contentDescription="-"/>
 
-<!--    <include layout="@layout/preview_photo_list" />-->
+    <!--    <include layout="@layout/preview_photo_list" />-->
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"

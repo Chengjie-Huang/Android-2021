@@ -31,6 +31,7 @@ import com.google.android.gms.location.LocationRequest
 import pl.aprilapps.easyphotopicker.*
 
 import com.example.mapdemo.data.ImageData
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickListener,
     GoogleMap.OnMyLocationButtonClickListener, OnMapReadyCallback {
@@ -63,15 +64,13 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         this.mViewModel = ViewModelProvider(this)[ImageDataViewModel::class.java]
 
         // Operation when clicking on the main list button
-        val mainButton = findViewById<Button>(R.id.main_list_second_button)
-        val startButton = findViewById<Button>(R.id.start_button)
-        val stopButton = findViewById<Button>(R.id.stop_button)
-        val photoButton = findViewById<Button>(R.id.photo_button)
-        val buttonList: Array<Button> = arrayOf<Button>(stopButton, startButton)
+        val mainButton = findViewById<FloatingActionButton>(R.id.main_list_second_button)
+        val startButton = findViewById<FloatingActionButton>(R.id.start_button)
+        val stopButton = findViewById<FloatingActionButton>(R.id.stop_button)
+        val photoButton = findViewById<FloatingActionButton>(R.id.photo_button)
+        val buttonList: Array<FloatingActionButton> = arrayOf<FloatingActionButton>(stopButton, startButton)
         mainButton.setOnClickListener(View.OnClickListener {
             showButtonList(buttonList, mainButton)
-            mainButton.text = if (SecondVisitActivity.mainButtonClicks % 2 == 0) "-" else "+"
-            SecondVisitActivity.mainButtonClicks += 1
         })
 
         photoButton.setOnClickListener(View.OnClickListener {
@@ -168,7 +167,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
      * Show the main button list by animation.
      */
     @SuppressLint("Recycle")
-    private fun showButtonList(buttonList: Array<Button>, mainButton: Button) {
+    private fun showButtonList(buttonList: Array<FloatingActionButton>, mainButton: FloatingActionButton) {
         var i = 1
         val mainButtonY = mainButton.y
         for (button in buttonList) {
@@ -276,6 +275,6 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
 
     companion object {
         private var mainButtonClicks = 0
-        private const val BUTTON_Y_OFF_AXIS = 120
+        private const val BUTTON_Y_OFF_AXIS = 180
     }
 }
