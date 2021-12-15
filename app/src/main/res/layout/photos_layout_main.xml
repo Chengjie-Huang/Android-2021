@@ -18,5 +18,5 @@
             android:background="?attr/colorPrimary" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_camera" />
+    <include layout="@layout/content_photo" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
