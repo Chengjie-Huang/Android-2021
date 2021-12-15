@@ -8,11 +8,10 @@ import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.widget.Toast
+import android.graphics.Color
 import android.location.Location
 import android.view.View
-import android.widget.Button
-import android.widget.RelativeLayout
+import android.widget.*
 
 import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
@@ -44,6 +43,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
     private var writePermissionDenied = false
     private var cameraPermissionDenied = false
 
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -72,7 +72,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
             startActivity( Intent(this, SearchActivity::class.java))
             //Jump to the search page
         }
-
+        initMapsView()
+        initMapsData()
     }
 
     /**
@@ -215,4 +216,48 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
         private var mainButtonClicks = 0
         private const val BUTTON_Y_OFF_AXIS = 180
     }
+    //增加预览栏
+    private var horizon_view: HorizontalScrollView? = null
+    private var linear_view: LinearLayout? = null
+    private var grid_view: GridLayout? = null
+
+    //直接使用linerlayout
+
+    private fun initMapsView(){
+        horizon_view = findViewById(R.id.maps_horizon)
+        linear_view = findViewById(R.id.maps_linear)
+    }
+
+    //图片测试数组之后删除！！！之后改为数据库中的图片集
+    var ImageView = intArrayOf(
+        R.drawable.walk,
+        R.drawable.joe1,
+        R.drawable.joe1,
+        R.drawable.joe1,
+        R.drawable.joe1,
+        R.drawable.joe1,
+        R.drawable.joe1,
+        R.drawable.joe1,
+        R.drawable.joe1
+    )
+
+    private fun initMapsData(){
+        for (i in ImageView.indices) {
+            val img = ImageView(this@MapsActivity)
+            val params = LinearLayout.LayoutParams(500, LinearLayout.LayoutParams.MATCH_PARENT)
+            params.setMargins(5, 0, 5, 0)
+            img.scaleType = android.widget.ImageView.ScaleType.FIT_XY
+            img.layoutParams = params
+            //添加点击事件(跳转界面)
+            img.setOnClickListener {
+                startActivity( Intent(this, DetailActivity().javaClass))
+            }
+            img.setImageResource(ImageView[i])
+            linear_view!!.setBackgroundColor(Color.argb(255,113,191,234))
+            linear_view!!.addView(img)
+        }
+    }
+
 }
+
+
