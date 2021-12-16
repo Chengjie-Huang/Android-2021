@@ -45,8 +45,6 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
     private lateinit var mLocationRequest: LocationRequest
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private val mapView: MapView? = null
-    private var mButtonStart: Button? = null
-    private var mButtonEnd: Button? = null
     private var mViewModel: ImageDataViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,11 +69,11 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         val startButton = findViewById<FloatingActionButton>(R.id.start_button)
         val stopButton = findViewById<FloatingActionButton>(R.id.stop_button)
         val photoButton = findViewById<FloatingActionButton>(R.id.photo_button)
-        val buttonList: Array<FloatingActionButton> = arrayOf<FloatingActionButton>(stopButton, startButton)
+        val buttonList: Array<FloatingActionButton> = arrayOf<FloatingActionButton>(stopButton, startButton,photoButton)
         mainButton.setOnClickListener(View.OnClickListener {
             showButtonList(buttonList, mainButton)
+            mainButtonClicks += 1
         })
-
         photoButton.setOnClickListener(View.OnClickListener {
             easyImage.openChooser(this@SecondVisitActivity)
         })
