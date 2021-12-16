@@ -8,16 +8,16 @@
 
     <FrameLayout
         android:id="@+id/detail_frameLayout_photo"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_width="425dp"
+        android:layout_height="462dp"
         tools:ignore="MissingConstraints">
 
         <ImageView
             android:id="@+id/detail_image"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:srcCompat="@tools:sample/backgrounds/scenic"
-            android:contentDescription="TODO" />
+            android:layout_height="440dp"
+            android:contentDescription="TODO"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
     </FrameLayout>
 
     <ScrollView
@@ -110,9 +110,10 @@
         android:id="@+id/detail_change_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:fabSize="normal"
+        app:fabSize="mini"
         android:src="@drawable/ic_baseline_edit_note_24"
         android:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

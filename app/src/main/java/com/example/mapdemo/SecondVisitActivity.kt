@@ -326,7 +326,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
 
     companion object {
         private var mainButtonClicks = 0
-        private const val BUTTON_Y_OFF_AXIS = 180
+        private const val BUTTON_Y_OFF_AXIS = 120
 
         private var activity: AppCompatActivity? = null
         private lateinit var mMap: GoogleMap

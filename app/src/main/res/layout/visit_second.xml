@@ -23,7 +23,8 @@
         android:src="@drawable/ic_baseline_pause_24"
         android:backgroundTint="@color/white"
         android:visibility="invisible"
-        />
+        app:fabSize="mini"
+        app:rippleColor="@color/purple_200"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/start_button"
@@ -40,7 +41,9 @@
         android:layout_marginBottom="4dp"
         android:visibility="invisible"
         android:backgroundTint="@color/white"
-        android:src="@drawable/ic_baseline_play_arrow_24" />
+        android:src="@drawable/ic_baseline_play_arrow_24"
+        app:fabSize="mini"
+        app:rippleColor="@color/purple_200"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/main_list_second_button"
@@ -57,7 +60,9 @@
         android:layout_marginBottom="4dp"
         android:backgroundTint="@color/white"
         android:src="@drawable/ic_baseline_add_24"
-        android:contentDescription="+"/>
+        android:contentDescription="+"
+        app:fabSize="mini"
+        app:rippleColor="@color/purple_200"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/photo_button"
@@ -75,7 +80,8 @@
         android:visibility="invisible"
         android:backgroundTint="@color/white"
         android:src="@drawable/ic_baseline_camera_alt_24"
-        />
+        app:fabSize="mini"
+        app:rippleColor="@color/purple_200"/>
     <!--        <include layout="@layout/preview_photo_list" />-->
     <fragment
         android:id="@+id/map"

@@ -22,7 +22,9 @@
         android:layout_marginBottom="104dp"
         app:backgroundTint="@color/white"
         android:src="@drawable/ic_baseline_directions_walk_24"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        app:fabSize="mini"
+        app:rippleColor="@color/purple_200"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/search_button"
@@ -40,7 +42,9 @@
         android:src="@drawable/ic_baseline_search_24"
         app:backgroundTint="@color/white"
         android:textColor="@color/black"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        app:fabSize="mini"
+        app:rippleColor="@color/purple_200"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/main_list_button"
@@ -51,18 +55,20 @@
         android:insetRight="0dp"
         android:insetTop="0dp"
         app:cornerRadius="60dp"
+        app:fabSize="mini"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="104dp"
         android:src="@drawable/ic_baseline_add_24"
         app:backgroundTint="@color/white"
-        android:contentDescription="-"/>
+        android:contentDescription="-"
+        app:rippleColor="@color/purple_200"/>
 
     <HorizontalScrollView
         android:id="@+id/maps_horizon"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="0dp"
         android:fillViewport="true"
@@ -70,7 +76,7 @@
 
         <LinearLayout
             android:id="@+id/maps_linear"
-            android:layout_width="wrap_content"
+            android:layout_width="10dp"
             android:layout_height="match_parent"
             android:orientation="horizontal" >
         </LinearLayout>
