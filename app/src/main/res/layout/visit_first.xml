@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:alpha="0.6"
-    android:background="@drawable/walk">
+    android:alpha="0.6">
 
     <TextView
         android:id="@+id/new_visit_text"
@@ -35,8 +34,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="show current data and time automatically calculated"
-        android:textSize="15dp" />
+        android:textSize="15dp"
+        android:text="@s"/>
 
     <Button
         android:id="@+id/start_button"

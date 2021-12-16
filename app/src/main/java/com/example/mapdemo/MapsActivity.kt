@@ -220,7 +220,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
             LOCATION, READ, WRITE, CAMERA
         }
         private var mainButtonClicks = 0
-        private const val BUTTON_Y_OFF_AXIS = 180
+        private const val BUTTON_Y_OFF_AXIS = 120
     }
 
     // the preview photos list
@@ -239,7 +239,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
                 myDataset.addAll(images!!)
                 for (imageData in myDataset) {
                     val imageView = ImageView(this@MapsActivity)
-                    val params = LinearLayout.LayoutParams(500, LinearLayout.LayoutParams.MATCH_PARENT)
+                    val params = LinearLayout.LayoutParams(150, LinearLayout.LayoutParams.MATCH_PARENT)
                     params.setMargins(5, 0, 5, 0)
                     imageView.scaleType = android.widget.ImageView.ScaleType.FIT_XY
                     imageView.layoutParams = params
