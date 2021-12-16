@@ -43,7 +43,7 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.detail_layout_main)
         val bundle: Bundle? = intent.extras
         var position = -1
-        var from = -1
+        var from: Int
 
         if (bundle != null) {
             // this is the image position in the itemList
@@ -56,12 +56,12 @@ class DetailActivity : AppCompatActivity() {
             if (from == 0) {
                 val image = bundle.getString("imgUri")
                 val title = bundle.getString("imgTitle")
-                val descript = bundle.getString("imgDescription")
+                val description = bundle.getString("imgDescription")
                 val date = bundle.getString("imgDate")
                 imageView.setImageURI(Uri.parse(image))
                 titleTextView.text = title
                 dateTextView.text = date
-                descriptionTextView.text = descript
+                descriptionTextView.text = description
             } else if (from == 1) {
                 position = bundle.getInt("position")
                 imageView.setImageBitmap(PhotosAdapter.items[position].thumbnail!!)
