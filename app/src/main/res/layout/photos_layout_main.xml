@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:alpha="0.6"
+    android:background="@drawable/walk">
 
     <include layout="@layout/content_photo" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
