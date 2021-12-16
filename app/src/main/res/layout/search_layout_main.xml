@@ -8,15 +8,6 @@
     android:background="@drawable/walk"
     tools:context=".SearchActivity">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_photo_library_24"
-        app:layout_constraintBottom_toTopOf="@+id/search_text_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/search_title"
         android:layout_width="70dp"

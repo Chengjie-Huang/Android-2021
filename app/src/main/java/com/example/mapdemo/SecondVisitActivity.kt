@@ -290,7 +290,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
      */
     private fun getImageData(returnedPhotos: Array<MediaFile>) {
         val bundle = this.intent.extras
-        val title : String = bundle?.get("title").toString()
+        val title : String = bundle?.get("visit_title").toString()
         val sdf = SimpleDateFormat("dd/M/yyyy")
         val currentDate : String = sdf.format(Date())
         val latitue: Double?
