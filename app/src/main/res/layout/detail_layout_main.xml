@@ -20,81 +20,92 @@
             android:contentDescription="TODO" />
     </FrameLayout>
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/detail_scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_frameLayout_photo">
+        android:layout_height="130dp"
+        android:layout_marginTop="60dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_frameLayout_photo"
+        tools:ignore="MissingConstraints">
 
-        <TextView
-            android:id="@+id/detail_title"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Title"
-            android:textStyle="bold"
-            android:textColor="@color/purple_700"
-            android:textSize="20sp"
-            android:textAlignment="center"/>
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="8dp">
 
-        <TextView
-            android:id="@+id/detail_text_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:text="title"
-            android:textStyle="italic"
-            android:textAlignment="center"
-            android:textColor="@color/purple_200"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/detail_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Title"
+                android:textAlignment="center"
+                android:textColor="@color/purple_700"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/detail_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Date"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:textColor="@color/purple_700"
-            android:textSize="20sp" />
+            <TextView
+                android:id="@+id/detail_text_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="title"
+                android:textAlignment="center"
+                android:textColor="@color/purple_200"
+                android:textSize="18sp"
+                android:textStyle="italic" />
 
-        <TextView
-            android:id="@+id/detail_text_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:text="date"
-            android:textAlignment="center"
-            android:textStyle="italic"
-            android:textColor="@color/purple_200"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/detail_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textAlignment="center"
+                android:textColor="@color/purple_700"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/detail_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Description"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:textColor="@color/purple_700"
-            android:textSize="20sp" />
+            <TextView
+                android:id="@+id/detail_text_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="date"
+                android:textAlignment="center"
+                android:textColor="@color/purple_200"
+                android:textSize="18sp"
+                android:textStyle="italic" />
 
-        <TextView
-            android:id="@+id/detail_text_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:text="description"
-            android:textStyle="italic"
-            android:textAlignment="center"
-            android:textColor="@color/purple_200"
-            android:textSize="18sp" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/detail_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textAlignment="center"
+                android:textColor="@color/purple_700"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/detail_text_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="description"
+                android:textAlignment="center"
+                android:textColor="@color/purple_200"
+                android:textSize="18sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+    </ScrollView>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/detail_change_button"
         android:layout_width="wrap_content"
