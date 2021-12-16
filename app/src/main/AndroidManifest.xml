@@ -75,6 +75,11 @@
             android:label="@string/detail_activity_label" />
 
         <activity
+            android:name=".DetailEditActivity"
+            android:exported="true"
+            android:label="@string/edit_activity_label" />
+
+        <activity
             android:name=".PhotosActivity"
             android:exported="true"
             android:label="@string/photos_activity_label" />
