@@ -20,8 +20,6 @@ class DetailEditActivity :AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_layout_main)
 
-        //加dao
-
         val bundle: Bundle? = intent.extras
         var position = -1
 
