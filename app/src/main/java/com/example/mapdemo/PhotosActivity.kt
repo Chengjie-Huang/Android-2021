@@ -28,10 +28,6 @@ class PhotosActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.photos_layout_main)
 
-        var bundle = this.intent.extras
-        title = bundle?.getString("title", "").toString()
-        date = bundle?.getString("date", "").toString()
-
         this.mViewModel = ViewModelProvider(this)[ImageDataViewModel::class.java]
         mRecyclerView = findViewById(R.id.grid_recycler_view)
 
@@ -40,51 +36,18 @@ class PhotosActivity : AppCompatActivity() {
         mAdapter = PhotosAdapter(myDataset) as RecyclerView.Adapter<RecyclerView.ViewHolder>
         mRecyclerView.adapter = mAdapter
 
-        if (title != "" && date != "") {
-            this.mViewModel!!.getImageDataByTitleAndDate(title, date)!!.observe(this) { images ->
-                images.let {
-                    myDataset.clear();
-                    myDataset.addAll(images!!)
-                    mAdapter.notifyDataSetChanged()
-                }
-            }
-        } else if (title != "") {
-            this.mViewModel!!.getImageDataByTitle(title)!!.observe(this) { images ->
-                images.let {
-                    myDataset.clear();
-                    myDataset.addAll(images!!)
-                    mAdapter.notifyDataSetChanged()
-                }
-            }
-        } else if (date != "") {
-            this.mViewModel!!.getImageDataByDate(date)!!.observe(this) { images ->
-                images.let {
-                    myDataset.clear();
-                    myDataset.addAll(images!!)
-                    mAdapter.notifyDataSetChanged()
-                }
-            }
-        } else {
-            this.mViewModel!!.getImageDataToDisplay()!!.observe(this) { images ->
-                images.let {
-                    myDataset.clear();
-                    myDataset.addAll(images!!)
-                    mAdapter.notifyDataSetChanged()
-                }
-            }
-        }
-
+        displayImage()
     }
 
     override fun onResume() {
         super.onResume()
-        var bundle = this.intent.extras
-        title = bundle?.getString("title", "").toString()
-        date = bundle?.getString("date", "").toString()
         displayImage()
     }
 
     fun displayImage() {
+        var bundle = this.intent.extras
+        title = bundle?.getString("search_title", "").toString()
+        date = bundle?.getString("search_date", "").toString()
         if (title != "" && date != "") {
             this.mViewModel!!.getImageDataByTitleAndDate(title, date)!!.observe(this) { images ->
                 images.let {

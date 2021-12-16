@@ -2,6 +2,7 @@ package com.example.mapdemo
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -17,8 +18,9 @@ class SearchActivity: AppCompatActivity() {
         val searchButton = findViewById<Button>(R.id.searchlayout_button)
         searchButton.setOnClickListener {
             val intent = Intent(this, PhotosActivity::class.java)
-            intent.putExtra("title", title.text)
-            intent.putExtra("date", date.text)
+            Log.d("Search activity", "Title: " + title.text + " Date: " + date.text)
+            intent.putExtra("search_title", title.text.toString())
+            intent.putExtra("search_date", date.text.toString())
             startActivity(intent)
         }
     }
