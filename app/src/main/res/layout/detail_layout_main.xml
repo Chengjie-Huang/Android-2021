@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".DetailActivity">
 
-    <FrameLayout
+    1<FrameLayout
         android:id="@+id/detail_frameLayout_photo"
         android:layout_width="425dp"
         android:layout_height="462dp"
