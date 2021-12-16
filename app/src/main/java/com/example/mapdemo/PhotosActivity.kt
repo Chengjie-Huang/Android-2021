@@ -1,11 +1,14 @@
 package com.example.mapdemo
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -82,4 +85,20 @@ class PhotosActivity : AppCompatActivity() {
             }
         }
     }
+    val startForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val pos = result.data?.getIntExtra("position", -1)!!
+                val id = result.data?.getIntExtra("id", -1)!!
+                val del_flag = result.data?.getIntExtra("deletion_flag", -1)!!
+                if (pos != -1 && id != -1) {
+                    if (result.resultCode == Activity.RESULT_OK) {
+                        when(del_flag){
+                            -1, 0 -> mAdapter.notifyDataSetChanged()
+                            else -> mAdapter.notifyItemRemoved(pos)
+                        }
+                    }
+                }
+            }
+        }
 }
