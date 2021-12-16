@@ -14,9 +14,8 @@ import kotlinx.coroutines.runBlocking
 /**
  * Database class with a singleton INSTANCE object.
  */
-@Database(entities = [ImageData::class], version = 1, exportSchema = false)
+@Database(entities = [ImageData::class], version = 3, exportSchema = false)
 abstract class ImageRoomDatabase: RoomDatabase() {
-
     abstract fun imageDataDao(): ImageDataDao
 
     companion object {

@@ -54,8 +54,32 @@ class ImageDataRepository(application: Application) {
      * it gets the data when changed in the db and returns it to the ViewModel
      * @return
      */
+    fun getDataByDate(date: String): LiveData<List<ImageData>?>? {
+        return mDBDao?.getItemsByDate(date)
+    }
+
+    /**
+     * it gets the data when changed in the db and returns it to the ViewModel
+     * @return
+     */
+    fun getDataByTitleAndDate(title: String, date: String): LiveData<List<ImageData>?>? {
+        return mDBDao?.getItemsByTitleAndDate(title, date)
+    }
+
+    /**
+     * it gets the data when changed in the db and returns it to the ViewModel
+     * @return
+     */
     fun getData(): LiveData<List<ImageData>?>? {
         return mDBDao?.getItems()
+    }
+
+    /**
+     * it gets the data when changed in the db and returns it to the ViewModel
+     * @return
+     */
+    fun getDataRaw(): List<ImageData>? {
+        return mDBDao?.getItemsRaw()
     }
 
     /**

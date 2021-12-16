@@ -12,10 +12,14 @@ class SearchActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.search_layout_main)
 
-        val textView = findViewById<EditText>(R.id.search_text_title)
-        val dateView = findViewById<EditText>(R.id.search_text_date)
+        val title = findViewById<EditText>(R.id.search_text_title)
+        val date = findViewById<EditText>(R.id.search_text_date)
         val searchButton = findViewById<Button>(R.id.searchlayout_button)
-        searchButton.setOnClickListener { startActivity( Intent(this, PhotosActivity().javaClass)) }
-        //Jump to the photos page
+        searchButton.setOnClickListener {
+            val intent = Intent(this, PhotosActivity::class.java)
+            intent.putExtra("title", title.text)
+            intent.putExtra("date", date.text)
+            startActivity(intent)
+        }
     }
 }

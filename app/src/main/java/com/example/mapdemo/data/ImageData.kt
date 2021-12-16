@@ -12,10 +12,9 @@ data class ImageData(
     @ColumnInfo(name = "uri") val imageUri: String,
     @ColumnInfo(name = "title") var imageTitle: String,
     @ColumnInfo(name = "date") var imageDate: String? = null,
-    @ColumnInfo(name = "longitude") var imageLongitude: Float? = null,
-    @ColumnInfo(name = "altitude") var imageAltitude: Float? = null,
-    @ColumnInfo(name = "description") var imageDescription: String? = null,
-    @ColumnInfo(name = "thumbnailUri") var thumbnailUri: String? = null)
+    @ColumnInfo(name = "longitude") var imageLongitude: Double? = null,
+    @ColumnInfo(name = "latitude") var imageLatitude: Double? = null,
+    @ColumnInfo(name = "description") var imageDescription: String? = null)
 {
     @Ignore
     var thumbnail: Bitmap? = null

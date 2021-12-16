@@ -19,14 +19,17 @@ interface ImageDataDao {
     @Query("SELECT * from image WHERE id = :id")
     fun getItem(id: Int): LiveData<ImageData>
 
+    @Query("SELECT * from image ORDER BY id ASC")
+    fun getItemsRaw(): List<ImageData>?
+
     @Query("SELECT * from image WHERE title LIKE :title")
     fun getItemsByTitle(title: String): LiveData<List<ImageData>?>?
 
     @Query("SELECT * from image WHERE date LIKE :date")
-    fun getItemsByDate(date: String): LiveData<List<ImageData>>
+    fun getItemsByDate(date: String): LiveData<List<ImageData>?>?
 
     @Query("SELECT * from image WHERE title LIKE :title and date LIKE :date")
-    fun getItemsByTitleAndDate(title: String, date: String): LiveData<List<ImageData>>
+    fun getItemsByTitleAndDate(title: String, date: String): LiveData<List<ImageData>?>?
 
     // Specify the conflict strategy as REPLACE,
     // when the trying to add an existing Item

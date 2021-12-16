@@ -7,6 +7,8 @@ import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.location.Location
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +34,7 @@ import pl.aprilapps.easyphotopicker.*
 
 import com.example.mapdemo.data.ImageData
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.text.SimpleDateFormat
 
 class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickListener,
     GoogleMap.OnMyLocationButtonClickListener, OnMapReadyCallback {
@@ -260,17 +263,26 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
      */
     private fun getImageData(returnedPhotos: Array<MediaFile>) {
         val imageDataList: MutableList<ImageData> = ArrayList<ImageData>()
+        val bundle = this.intent.extras
+        val title : String = bundle?.get("title").toString()
+        val sdf = SimpleDateFormat("dd/M/yyyy")
+        val currentDate : String = sdf.format(Date())
+        val latitue : Double = mCurrentLocation!!.latitude
+        val longitude : Double = mCurrentLocation!!.longitude
+//        Log.i("Second visit","date: " + currentDate + "latitude: " + latitue)
         for (mediaFile in returnedPhotos) {
-            val fileNameAsTempTitle = mediaFile.file.name
             var imageData = ImageData(
-                imageTitle = fileNameAsTempTitle,
-                imageUri = mediaFile.file.absolutePath
+                imageTitle = title,
+                imageUri = mediaFile.file.absolutePath,
+                imageDate = currentDate,
+                imageLatitude = latitue,
+                imageLongitude = longitude
             )
+            Log.i("Second visit: ", imageData.toString())
             // Update the database with the newly created object
 //            var id = insertData(imageData)
             this.mViewModel!!.insertNewImageData(imageData)
         }
-
     }
 
     companion object {

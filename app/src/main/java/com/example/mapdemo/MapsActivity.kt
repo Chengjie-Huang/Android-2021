@@ -22,6 +22,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener
 import com.google.android.gms.maps.GoogleMap.OnMyLocationClickListener
 import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
+import androidx.lifecycle.ViewModelProvider
 
 import com.example.mapdemo.databinding.ActivityMapsBinding
 import com.example.mapdemo.PermissionUtils.PermissionDeniedDialog.Companion.newInstance
@@ -42,6 +43,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
     private var readPermissionDenied = false
     private var writePermissionDenied = false
     private var cameraPermissionDenied = false
+    private var mViewModel: ImageDataViewModel? = null
 
     
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +51,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        this.mViewModel = ViewModelProvider(this)[ImageDataViewModel::class.java]
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -63,6 +67,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
         val buttonList: Array<FloatingActionButton> = arrayOf<FloatingActionButton>(searchButton, visitButton)
         mainButton.setOnClickListener(View.OnClickListener {
             showButtonList(buttonList, mainButton)
+            mainButtonClicks += 1
         })
         visitButton.setOnClickListener {
             val intent = Intent(this, VisitActivity::class.java)
