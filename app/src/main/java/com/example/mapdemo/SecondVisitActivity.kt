@@ -99,7 +99,6 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
             )
 
         Log.e("IntentService", "Getting...")
-
         val locationTask = mFusedLocationClient.requestLocationUpdates(
             mLocationRequest,
             mLocationPendingIntent!!
@@ -129,15 +128,14 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
 
     override fun onResume() {
         super.onResume()
-        if (allowUpdateLocate) {
-            mLocationRequest = LocationRequest.create().apply {
-                interval = 1000
-                fastestInterval = 5000
-                priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            }
-            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-            startLocationUpdates()
+
+        mLocationRequest = LocationRequest.create().apply {
+            interval = 1000
+            fastestInterval = 5000
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+//        startLocationUpdates()
     }
 
     private var mCurrentLocation: Location? = null
