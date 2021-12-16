@@ -59,6 +59,7 @@ class PhotosAdapter : RecyclerView.Adapter<PhotosAdapter.ViewHolder> {
             photosActivityContext.startForResult.launch(
                Intent(context, DetailActivity::class.java).apply {
                    putExtra("position", position)
+                   putExtra("from", 1)
                 }
            )
         })

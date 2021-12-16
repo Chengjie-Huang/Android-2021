@@ -2,7 +2,9 @@ package com.example.mapdemo
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -41,26 +43,32 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.detail_layout_main)
         val bundle: Bundle? = intent.extras
         var position = -1
+        var from = -1
 
         if (bundle != null) {
             // this is the image position in the itemList
-            position = bundle.getInt("position")
-            displayData(position)
-
-    }
-}
-
-    private fun displayData(position: Int) {
-        if (position != -1) {
+            from  = bundle.getInt("from")
             val imageView = findViewById<ImageView>(R.id.detail_image)
             val titleTextView = findViewById<TextView>(R.id.detail_text_title)
             val dateTextView = findViewById<TextView>(R.id.detail_text_date)
             val descriptionTextView = findViewById<TextView>(R.id.detail_text_description)
 
-            imageView.setImageBitmap(PhotosAdapter.items[position].thumbnail!!)
-            titleTextView.text = PhotosAdapter.items[position].imageTitle
-            dateTextView.text = PhotosAdapter.items[position].imageDate
-            descriptionTextView.text = PhotosAdapter.items[position].imageDescription
+            if (from == 0) {
+                val image = bundle.getString("imgUri")
+                val title = bundle.getString("imgTitle")
+                val descript = bundle.getString("imgDescription")
+                val date = bundle.getString("imgDate")
+                imageView.setImageURI(Uri.parse(image))
+                titleTextView.text = title
+                dateTextView.text = date
+                descriptionTextView.text = descript
+            } else if (from == 1) {
+                position = bundle.getInt("position")
+                imageView.setImageBitmap(PhotosAdapter.items[position].thumbnail!!)
+                titleTextView.text = PhotosAdapter.items[position].imageTitle
+                dateTextView.text = PhotosAdapter.items[position].imageDate
+                descriptionTextView.text = PhotosAdapter.items[position].imageDescription
+            }
 
             val fabEdit: FloatingActionButton = findViewById(R.id.detail_change_button)
             fabEdit.setOnClickListener(View.OnClickListener {
@@ -70,6 +78,7 @@ class DetailActivity : AppCompatActivity() {
                     }
                 )
             })
+
         }
     }
 }
