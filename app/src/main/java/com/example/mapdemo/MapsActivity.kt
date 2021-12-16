@@ -41,9 +41,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityMapsBinding
     private var locatePermissionDenied = false
-    private var readPermissionDenied = false
-    private var writePermissionDenied = false
-    private var cameraPermissionDenied = false
     private var mViewModel: ImageDataViewModel? = null
 
     
@@ -204,7 +201,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
      * installed Google Play services and returned to the app.
      */
     override fun onMapReady(googleMap: GoogleMap) {
-        map = googleMap ?: return
+        map = googleMap
         enableAllPermission()
         googleMap.setOnMyLocationButtonClickListener(this)
         googleMap.setOnMyLocationClickListener(this)
@@ -221,6 +218,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
         }
         private var mainButtonClicks = 0
         private const val BUTTON_Y_OFF_AXIS = 120
+        var myDataset: MutableList<ImageData> = ArrayList<ImageData>()
     }
 
     // the preview photos list
@@ -228,10 +226,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
 
     private fun initMapsView(){
         previewPhotos = findViewById(R.id.maps_linear)
-        previewPhotos!!.setBackgroundColor(Color.argb(255,113,191,234))
+        previewPhotos!!.setBackgroundColor(Color.WHITE)
     }
 
-    private var myDataset: MutableList<ImageData> = ArrayList<ImageData>()
     private fun initMapsData(){
         this.mViewModel!!.getImageDataToDisplay()!!.observe(this) { images ->
             images.let {
@@ -245,7 +242,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
                     imageView.layoutParams = params
                     // add listener -> move to detail page
                     imageView.setOnClickListener {
-                        startActivity( Intent(this, DetailActivity().javaClass))
+                        val intent = Intent(this, DetailActivity::class.java)
+                        intent.putExtra("from", 0)
+                        intent.putExtra("imgUri", imageData.imageUri)
+                        intent.putExtra("imgTitle", imageData.imageTitle)
+                        intent.putExtra("imgDescription", imageData.imageDescription)
+                        intent.putExtra("imgDate", imageData.imageDate)
+                        startActivity(intent)
                     }
                     CoroutineScope(Dispatchers.Main).launch {
                         val bitmap =
