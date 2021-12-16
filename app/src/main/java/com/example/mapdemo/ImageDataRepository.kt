@@ -40,6 +40,26 @@ class ImageDataRepository(application: Application) {
                 }
             }
         }
+
+        private class DeleteAsyncTask(private val dao: ImageDataDao?) : ViewModel() {
+            suspend fun deleteInBackground(vararg params: ImageData) {
+                scope.launch {
+                    for(param in params){
+                        this@DeleteAsyncTask.dao?.delete(param)
+                    }
+                }
+            }
+        }
+
+        private class UpdateAsyncTask(private val dao: ImageDataDao?) : ViewModel() {
+            suspend fun updateInBackground(vararg params: ImageData) {
+                scope.launch {
+                    for(param in params){
+                        this@UpdateAsyncTask.dao?.update(param)
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -87,5 +107,19 @@ class ImageDataRepository(application: Application) {
      */
     suspend fun insertNewImageData(imageData: ImageData) {
         InsertAsyncTask(mDBDao).insertInBackground(imageData)
+    }
+
+    /**
+     * called by the UI to delete a ImageData
+     */
+    suspend fun deleteImageData(imageData: ImageData) {
+        DeleteAsyncTask(mDBDao).deleteInBackground(imageData)
+    }
+
+    /**
+     * called by the UI to update a ImageData
+     */
+    suspend fun updateImageData(imageData: ImageData) {
+        UpdateAsyncTask(mDBDao).updateInBackground(imageData)
     }
 }

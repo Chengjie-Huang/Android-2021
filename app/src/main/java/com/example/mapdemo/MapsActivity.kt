@@ -232,6 +232,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
     private fun initMapsData(){
         this.mViewModel!!.getImageDataToDisplay()!!.observe(this) { images ->
             images.let {
+                previewPhotos!!.removeAllViews()
                 myDataset.clear()
                 myDataset.addAll(images!!)
                 for (imageData in myDataset) {

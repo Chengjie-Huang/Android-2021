@@ -328,7 +328,6 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
 
         private var activity: AppCompatActivity? = null
         private lateinit var mMap: GoogleMap
-        //private const val ACCESS_FINE_LOCATION = 123
 
         fun getActivity(): AppCompatActivity? {
             return activity

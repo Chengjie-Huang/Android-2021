@@ -53,4 +53,16 @@ class ImageDataViewModel(application: Application) : AndroidViewModel(applicatio
             mRepository.insertNewImageData(imageData)
         }
     }
+
+    fun deleteImageData(imageData: ImageData) {
+        viewModelScope.launch(Dispatchers.IO) {
+            mRepository.deleteImageData(imageData)
+        }
+    }
+
+    fun updateImageData(imageData: ImageData) {
+        viewModelScope.launch(Dispatchers.IO) {
+            mRepository.updateImageData(imageData)
+        }
+    }
 }

@@ -56,7 +56,7 @@ class PhotosActivity : AppCompatActivity() {
         displayImage()
     }
 
-    fun displayImage() {
+    private fun displayImage() {
         var bundle = this.intent.extras
         title = bundle?.getString("search_title", "").toString()
         date = bundle?.getString("search_date", "").toString()
