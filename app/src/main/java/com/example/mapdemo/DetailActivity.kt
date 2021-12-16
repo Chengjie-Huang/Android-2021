@@ -66,7 +66,7 @@ class DetailActivity : AppCompatActivity() {
             val fabEdit: FloatingActionButton = findViewById(R.id.detail_change_button)
             fabEdit.setOnClickListener(View.OnClickListener {
                 startForResult.launch(
-                    Intent( this, DetailActivity::class.java).apply {
+                    Intent( this, DetailEditActivity::class.java).apply {
                         putExtra("position", position)
                     }
                 )

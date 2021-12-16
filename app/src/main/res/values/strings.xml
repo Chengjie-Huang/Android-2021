@@ -7,6 +7,7 @@
     <string name="search_activity_label">SearchLayout</string>
     <string name="detail_activity_label">DetailLayout</string>
     <string name="photos_activity_label">PhotosLayout</string>
+    <string name="edit_activity_label">EditLayout</string>
 
     <!-- Permissions -->
     <string name="permission_rationale_location">Location permission is required.</string>
@@ -15,4 +16,10 @@
     <string name="permission_rationale_camera">Camera permission is required.</string>
     <string name="location_permission_denied">This app requires location permission to enable the \'my location\' layer. Please try again and grant access to use the location.\nIf the permission has been permanently denied, it can be enabled from the System Settings &gt; Apps &gt; \'Google Maps API Demos\'.</string>
     <string name="permission_required_toast">Location, reading and writing external storage, and camera permission is required for this demo.</string>
+    <string name="new_title">New Title</string>
+    <string name="new_date">New Date</string>
+    <string name="new_description">New Description</string>
+    <string name="delete">Delete</string>
+    <string name="save">save</string>
+    <string name="cancel">cancel</string>
 </resources>
