@@ -17,7 +17,7 @@ class VisitActivity : AppCompatActivity() {
         val editView = findViewById<EditText>(R.id.title_text)
         val explainText = findViewById<TextView>(R.id.explain_text)
         val startButton = findViewById<Button>(R.id.start_button)
-        val sdf = SimpleDateFormat("dd/M/yyyy")
+        val sdf = SimpleDateFormat("dd/M/yyyy/   hh:mm:ss")
         val currentDate: String = sdf.format(Date())
 
         explainText.text = currentDate

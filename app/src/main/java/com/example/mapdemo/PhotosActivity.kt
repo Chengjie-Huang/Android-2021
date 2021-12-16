@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.util.ArrayList
 import com.example.mapdemo.data.ImageData
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,6 +33,8 @@ class PhotosActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.photos_layout_main)
 
+        val homeButton = findViewById<FloatingActionButton>(R.id.home_button)
+
         this.mViewModel = ViewModelProvider(this)[ImageDataViewModel::class.java]
         mRecyclerView = findViewById(R.id.grid_recycler_view)
 
@@ -40,6 +44,11 @@ class PhotosActivity : AppCompatActivity() {
         mRecyclerView.adapter = mAdapter
 
         displayImage()
+        homeButton.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this, MapsActivity::class.java)
+            startActivity(intent)
+        })
+
     }
 
     override fun onResume() {
