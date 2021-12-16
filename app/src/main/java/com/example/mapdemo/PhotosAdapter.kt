@@ -54,14 +54,14 @@ class PhotosAdapter : RecyclerView.Adapter<PhotosAdapter.ViewHolder> {
                 }
             }
         }
-//        holder.itemView.setOnClickListener(View.OnClickListener {
-//            val mainActivityContext = context as MainActivity
-//            mainActivityContext.startForResult.launch(
-//                Intent(context, ShowImageActivity::class.java).apply {
-//                    putExtra("position", position)
-//                }
-//            )
-//        })
+        holder.itemView.setOnClickListener(View.OnClickListener {
+           val photosActivityContext = context as PhotosActivity
+            photosActivityContext.startForResult.launch(
+               Intent(context, DetailActivity::class.java).apply {
+                   putExtra("position", position)
+                }
+           )
+        })
     }
 
     override fun getItemCount(): Int {
