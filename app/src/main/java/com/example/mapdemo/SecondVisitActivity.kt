@@ -41,13 +41,13 @@ import java.text.SimpleDateFormat
 
 class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickListener,
     GoogleMap.OnMyLocationButtonClickListener, OnMapReadyCallback {
-    private lateinit var map: GoogleMap
     private lateinit var ctx: Context
     private lateinit var easyImage: EasyImage
     private lateinit var mLocationRequest: LocationRequest
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private val mapView: MapView? = null
     private var mViewModel: ImageDataViewModel? = null
+    private var allowUpdateLocate: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,9 +79,11 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         })
         startButton.setOnClickListener(View.OnClickListener {
             startLocationUpdates()
+            allowUpdateLocate = true
         })
         stopButton.setOnClickListener(View.OnClickListener {
             stopLocationUpdates()
+            allowUpdateLocate = false
         })
     }
 
@@ -127,13 +129,15 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
 
     override fun onResume() {
         super.onResume()
-        mLocationRequest = LocationRequest.create().apply {
-            interval = 1000
-            fastestInterval = 5000
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        if (allowUpdateLocate) {
+            mLocationRequest = LocationRequest.create().apply {
+                interval = 1000
+                fastestInterval = 5000
+                priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            }
+            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+            startLocationUpdates()
         }
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        startLocationUpdates()
     }
 
     private var mCurrentLocation: Location? = null
@@ -144,8 +148,8 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
             super.onLocationResult(locationResult)
             mCurrentLocation = locationResult.getLastLocation()
             mLastUpdateTime = DateFormat.getTimeInstance().format(Date())
-            Log.i("MAP", "new location " + mCurrentLocation.toString())
-            if (map != null) map.addMarker(
+            Log.d("MAP", "new location " + mCurrentLocation.toString())
+            mMap.addMarker(
                 MarkerOptions().position(
                     LatLng(
                         mCurrentLocation!!.latitude,
@@ -153,7 +157,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
                     )
                 ).title(mLastUpdateTime)
             )
-            map.moveCamera(
+            mMap.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(
                         mCurrentLocation!!.latitude,
@@ -243,8 +247,8 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
      */
     @SuppressLint("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap) {
-        map = googleMap ?: return
-        map.isMyLocationEnabled = true
+        mMap = googleMap ?: return
+        mMap.isMyLocationEnabled = true
         googleMap.setOnMyLocationButtonClickListener(this)
         googleMap.setOnMyLocationClickListener(this)
     }
@@ -285,14 +289,22 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
      * @return
      */
     private fun getImageData(returnedPhotos: Array<MediaFile>) {
-        val imageDataList: MutableList<ImageData> = ArrayList<ImageData>()
         val bundle = this.intent.extras
         val title : String = bundle?.get("title").toString()
         val sdf = SimpleDateFormat("dd/M/yyyy")
         val currentDate : String = sdf.format(Date())
-        val latitue : Double = mCurrentLocation!!.latitude
-        val longitude : Double = mCurrentLocation!!.longitude
-//        Log.i("Second visit","date: " + currentDate + "latitude: " + latitue)
+        val latitue: Double?
+        val longitude: Double?
+        if (mCurrentLocation != null) {
+            latitue = mCurrentLocation!!.latitude
+            longitude = mCurrentLocation!!.longitude
+        } else {
+            latitue = 0.0
+            longitude = 0.0
+        }
+//        val latitue : Double = mCurrentLocation!!.latitude
+//        val longitude : Double = mCurrentLocation!!.longitude
+        Log.i("Second visit","date: " + currentDate + " latitude: " + latitue)
         for (mediaFile in returnedPhotos) {
             var imageData = ImageData(
                 imageTitle = title,
@@ -301,7 +313,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
                 imageLatitude = latitue,
                 imageLongitude = longitude
             )
-            Log.i("Second visit: ", imageData.toString())
+//            Log.i("Second visit: ", imageData.toString())
             // Update the database with the newly created object
 //            var id = insertData(imageData)
             this.mViewModel!!.insertNewImageData(imageData)
