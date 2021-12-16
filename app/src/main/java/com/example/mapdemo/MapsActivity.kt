@@ -33,6 +33,7 @@ import com.example.mapdemo.data.ImageData
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.*
 import pl.aprilapps.easyphotopicker.MediaFile
+import java.util.ArrayList
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButtonClickListener,
     OnMyLocationClickListener, OnRequestPermissionsResultCallback {
@@ -221,45 +222,43 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
         private var mainButtonClicks = 0
         private const val BUTTON_Y_OFF_AXIS = 180
     }
-    //增加预览栏
-    private var horizon_view: HorizontalScrollView? = null
-    private var linear_view: LinearLayout? = null
-    private var grid_view: GridLayout? = null
 
-    //直接使用linerlayout
+    // the preview photos list
+    private var previewPhotos: LinearLayout? = null
 
     private fun initMapsView(){
-        horizon_view = findViewById(R.id.maps_horizon)
-        linear_view = findViewById(R.id.maps_linear)
+        previewPhotos = findViewById(R.id.maps_linear)
+        previewPhotos!!.setBackgroundColor(Color.argb(255,113,191,234))
     }
 
-    //图片测试数组之后删除！！！之后改为数据库中的图片集
-    var ImageView = intArrayOf(
-        R.drawable.walk,
-        R.drawable.joe1,
-        R.drawable.joe1,
-        R.drawable.joe1,
-        R.drawable.joe1,
-        R.drawable.joe1,
-        R.drawable.joe1,
-        R.drawable.joe1,
-        R.drawable.joe1
-    )
-
+    private var myDataset: MutableList<ImageData> = ArrayList<ImageData>()
     private fun initMapsData(){
-        for (i in ImageView.indices) {
-            val img = ImageView(this@MapsActivity)
-            val params = LinearLayout.LayoutParams(500, LinearLayout.LayoutParams.MATCH_PARENT)
-            params.setMargins(5, 0, 5, 0)
-            img.scaleType = android.widget.ImageView.ScaleType.FIT_XY
-            img.layoutParams = params
-            //添加点击事件(跳转界面)
-            img.setOnClickListener {
-                startActivity( Intent(this, DetailActivity().javaClass))
+        this.mViewModel!!.getImageDataToDisplay()!!.observe(this) { images ->
+            images.let {
+                myDataset.clear()
+                myDataset.addAll(images!!)
+                for (imageData in myDataset) {
+                    val imageView = ImageView(this@MapsActivity)
+                    val params = LinearLayout.LayoutParams(500, LinearLayout.LayoutParams.MATCH_PARENT)
+                    params.setMargins(5, 0, 5, 0)
+                    imageView.scaleType = android.widget.ImageView.ScaleType.FIT_XY
+                    imageView.layoutParams = params
+                    // add listener -> move to detail page
+                    imageView.setOnClickListener {
+                        startActivity( Intent(this, DetailActivity().javaClass))
+                    }
+                    CoroutineScope(Dispatchers.Main).launch {
+                        val bitmap =
+                            PhotosAdapter.decodeSampledBitmapFromResource(
+                                imageData.imageUri,
+                                150,
+                                150
+                            )
+                        imageView.setImageBitmap(bitmap)
+                        previewPhotos!!.addView(imageView)
+                    }
+                }
             }
-            img.setImageResource(ImageView[i])
-            linear_view!!.setBackgroundColor(Color.argb(255,113,191,234))
-            linear_view!!.addView(img)
         }
     }
 
