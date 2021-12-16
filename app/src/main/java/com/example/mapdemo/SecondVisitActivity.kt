@@ -5,6 +5,8 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -33,14 +35,14 @@ import com.google.android.gms.location.LocationRequest
 import pl.aprilapps.easyphotopicker.*
 
 import com.example.mapdemo.data.ImageData
+import com.google.android.gms.common.api.ApiException
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.text.SimpleDateFormat
 
 class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickListener,
     GoogleMap.OnMyLocationButtonClickListener, OnMapReadyCallback {
     private lateinit var map: GoogleMap
-    private lateinit var binding: ActivityMapsBinding
-    var imageUri: Uri? = null
+    private lateinit var ctx: Context
     private lateinit var easyImage: EasyImage
     private lateinit var mLocationRequest: LocationRequest
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
@@ -50,16 +52,14 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.visit_second)
+        setActivity(this)
+        setContext(this)
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         changeLocationButtonPosition(mapFragment)
-
-        // Obtain the value of title from the last activity
-//        var bundle = this.intent.extras
-//        var title : String = bundle?.get("title").toString()
 
         initEasyImage()
         this.mViewModel = ViewModelProvider(this)[ImageDataViewModel::class.java]
@@ -87,17 +87,41 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
 
     @SuppressLint("MissingPermission")
     private fun startLocationUpdates() {
-        mFusedLocationClient.requestLocationUpdates(
+        Log.e("Location update", "Starting...")
+        val intent = Intent(ctx, LocationService::class.java)
+        mLocationPendingIntent =
+            PendingIntent.getService(ctx,
+                1,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
+
+        Log.e("IntentService", "Getting...")
+
+        val locationTask = mFusedLocationClient.requestLocationUpdates(
             mLocationRequest,
-            mLocationCallback,
-            null /* Looper */
+            mLocationPendingIntent!!
         )
+        locationTask.addOnFailureListener { e ->
+            if (e is ApiException) {
+                e.message?.let { Log.w("MapsActivity", it) }
+            } else {
+                Log.w("MapsActivity", e.message!!)
+            }
+        }
+        locationTask.addOnCompleteListener {
+            Log.d(
+                "MapsActivity",
+                "starting gps successful!"
+            )
+        }
     }
 
     /**
      * it stops the location updates
      */
     private fun stopLocationUpdates() {
+        Log.e("Location", "update stop")
         mFusedLocationClient.removeLocationUpdates(mLocationCallback)
     }
 
@@ -114,6 +138,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
 
     private var mCurrentLocation: Location? = null
     private var mLastUpdateTime: String? = null
+    private var mLocationPendingIntent: PendingIntent? = null
     private var mLocationCallback: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             super.onLocationResult(locationResult)
@@ -283,8 +308,28 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         }
     }
 
+    private fun setContext(context: Context) {
+        ctx = context
+    }
+
     companion object {
         private var mainButtonClicks = 0
         private const val BUTTON_Y_OFF_AXIS = 180
+
+        private var activity: AppCompatActivity? = null
+        private lateinit var mMap: GoogleMap
+        //private const val ACCESS_FINE_LOCATION = 123
+
+        fun getActivity(): AppCompatActivity? {
+            return activity
+        }
+
+        fun setActivity(newActivity: AppCompatActivity) {
+            activity = newActivity
+        }
+
+        fun getMap(): GoogleMap {
+            return mMap
+        }
     }
 }

@@ -79,6 +79,10 @@
             android:exported="true"
             android:label="@string/photos_activity_label" />
 
+        <service
+            android:name=".LocationService"
+            android:exported="false"/>
+
     </application>
 
 </manifest>
