@@ -28,7 +28,7 @@ import pl.aprilapps.easyphotopicker.*
 import com.example.mapdemo.data.ImageData
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import uk.ac.sheffield.dcs.com31007_4510_6510.lab7.SensorViewModel
+import com.example.mapdemo.SensorViewModel
 import java.text.SimpleDateFormat
 
 class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickListener,
@@ -37,11 +37,8 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
     private lateinit var easyImage: EasyImage
     private lateinit var mLocationRequest: LocationRequest
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
-    private val mapView: MapView? = null
     private var mViewModel: ImageDataViewModel? = null
     private var allowUpdateLocate: Boolean = false
-    private var startedByClick = false
-    private var stoppedByClick = false
     private var sensorViewModel: SensorViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

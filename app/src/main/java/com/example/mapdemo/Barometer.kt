@@ -4,7 +4,7 @@
  * All rights reserved. No part of this code can be used without the explicit written permission by the author
  */
 
-package uk.ac.sheffield.dcs.com31007_4510_6510.lab7
+package com.example.mapdemo
 
 import android.content.Context
 import android.hardware.Sensor
