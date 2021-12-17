@@ -48,6 +48,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
     private val mapView: MapView? = null
     private var mViewModel: ImageDataViewModel? = null
     private var allowUpdateLocate: Boolean = false
+    private var sensorViewModel: SensorViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,6 +86,30 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
             stopLocationUpdates()
             allowUpdateLocate = false
         })
+        // Get a new or existing ViewModel using the ViewModelProvider.
+        this.sensorViewModel = ViewModelProvider(this)[SensorViewModel::class.java]
+
+        // Add an observer on the LiveData. The onChanged() method fires when the observed
+        // data changes and the activity is in the foreground.
+        this.sensorViewModel!!.retrieveAccelerometerData()!!.observe(this,
+            //  create observer, whenever the value is changed this annonymous func will be called
+            { newValue ->
+                newValue?.also{
+                    // Uncomment line below to display the accelerometer data in the log
+                    // You may choose to change this to display the data in the view - a simple view has already been provided for this
+                    Log.i("Data in UI - Accel", "Sensor time: $it[0], Sensor data: $it[1]")
+                }
+            })
+
+        this.sensorViewModel!!.retrievePressureData()!!.observe(this,
+            //  create observer, whenever the value is changed this func will be called
+            { newValue ->
+                newValue?.also{
+                    // Uncomment line below to display the pressure data in the log
+                    // You may choose to change this to display the data in the view - a simple view has already been provided for this
+                    Log.i("Data in UI - Pressure", it.toString())
+                }
+            })
     }
 
     @SuppressLint("MissingPermission")
