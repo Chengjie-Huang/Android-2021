@@ -5,11 +5,13 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.example.mapdemo.data.ImageDataDao
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.*
 
@@ -21,8 +23,14 @@ class DetailEditActivity :AppCompatActivity() {
         setContentView(R.layout.edit_layout_main)
         this.mViewModel = ViewModelProvider(this)[ImageDataViewModel::class.java]
 
+        val editHomeButton = findViewById<FloatingActionButton>(R.id.edit_home_button)
         val bundle: Bundle? = intent.extras
         var position = -1
+
+        editHomeButton.setOnClickListener(View.OnClickListener{
+            val intent = Intent(this, MapsActivity::class.java)
+            startActivity(intent)
+        })
 
         if (bundle != null) {
             // this is the image position in the itemList
