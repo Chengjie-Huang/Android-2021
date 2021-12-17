@@ -32,6 +32,7 @@ import pl.aprilapps.easyphotopicker.*
 import com.example.mapdemo.data.ImageData
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.mapdemo.SensorViewModel
 import java.text.SimpleDateFormat
 
 class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickListener,
@@ -42,6 +43,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private var mViewModel: ImageDataViewModel? = null
     private var allowUpdateLocate: Boolean = false
+    private var sensorViewModel: SensorViewModel? = null
     private var mLocationPendingIntent: PendingIntent? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +59,6 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         changeLocationButtonPosition(mapFragment)
 
         initEasyImage()
-        this.mViewModel = ViewModelProvider(this)[ImageDataViewModel::class.java]
 
         // Operation when clicking on the main list button
         val mainButton = findViewById<FloatingActionButton>(R.id.main_list_second_button)
@@ -71,18 +72,46 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         })
         photoButton.setOnClickListener(View.OnClickListener {
             easyImage.openChooser(this@SecondVisitActivity)
+
         })
         startButton.setOnClickListener(View.OnClickListener {
             startLocationUpdates()
+            this.sensorViewModel?.startSensing()
             allowUpdateLocate = true
         })
         stopButton.setOnClickListener(View.OnClickListener {
             stopLocationUpdates()
             allowUpdateLocate = false
+            this.sensorViewModel?.stopSensing()
             val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)
         })
+        // Get a new or existing ViewModel using the ViewModelProvider.
+        this.sensorViewModel = ViewModelProvider(this)[SensorViewModel::class.java]
+
+        // Add an observer on the LiveData. The onChanged() method fires when the observed
+        // data changes and the activity is in the foreground.
+        this.sensorViewModel!!.retrieveAccelerometerData()!!.observe(this,
+            //  create observer, whenever the value is changed this annonymous func will be called
+            { newValue ->
+                newValue?.also{
+                    // Uncomment line below to display the accelerometer data in the log
+                    // You may choose to change this to display the data in the view - a simple view has already been provided for this
+                    Log.i("Data in UI - Accel", "Sensor time: $it[0], Sensor data: $it[1]")
+                }
+            })
+
+        this.sensorViewModel!!.retrievePressureData()!!.observe(this,
+            //  create observer, whenever the value is changed this func will be called
+            { newValue ->
+                newValue?.also{
+                    // Uncomment line below to display the pressure data in the log
+                    // You may choose to change this to display the data in the view - a simple view has already been provided for this
+                    Log.i("Data in UI - Pressure", it.toString())
+                }
+            })
     }
+
 
     @SuppressLint("MissingPermission")
     private fun startLocationUpdates() {
@@ -286,6 +315,12 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
 
     private fun setContext(context: Context) {
         ctx = context
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Stop monitoring sensor event when the Activity lifecycle goes into the Paused state.
+        this.sensorViewModel?.stopSensing()
     }
 
     companion object {
