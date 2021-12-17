@@ -84,6 +84,8 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         stopButton.setOnClickListener(View.OnClickListener {
             stopLocationUpdates()
             allowUpdateLocate = false
+            val intent = Intent(this, MapsActivity::class.java)
+            startActivity(intent)
         })
     }
 
@@ -189,7 +191,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         locationButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_END, 0)
         locationButtonLayout.addRule(RelativeLayout.ALIGN_END, 0)
         locationButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_LEFT)
-        locationButtonLayout.setMargins(30, 0, 0, 80)
+        locationButtonLayout.setMargins(30, 0, 0, 10)
     }
     /**
      * Show the main button list by animation.
