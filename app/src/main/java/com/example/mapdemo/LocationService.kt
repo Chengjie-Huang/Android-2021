@@ -6,7 +6,6 @@ import android.location.Location
 import android.os.IBinder
 import android.util.Log
 import com.google.android.gms.location.LocationResult
-import com.google.android.gms.maps.CameraUpdate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions

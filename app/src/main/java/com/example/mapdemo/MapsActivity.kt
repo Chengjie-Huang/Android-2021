@@ -37,7 +37,6 @@ import com.example.mapdemo.PermissionUtils.requestPermission
 import com.example.mapdemo.data.ImageData
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.*
-import pl.aprilapps.easyphotopicker.MediaFile
 import java.util.ArrayList
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButtonClickListener,
