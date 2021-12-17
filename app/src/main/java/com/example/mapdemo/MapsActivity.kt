@@ -123,7 +123,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
         locationButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_END, 0)
         locationButtonLayout.addRule(RelativeLayout.ALIGN_END, 0)
         locationButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_LEFT)
-        locationButtonLayout.setMargins(30, 0, 0, 80)
+        locationButtonLayout.setMargins(30, 0, 0, 10)
     }
 
     /**
