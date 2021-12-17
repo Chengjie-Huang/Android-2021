@@ -50,7 +50,6 @@ class DetailEditActivity :AppCompatActivity() {
                 val title = bundle.getString("imgTitle")
                 val description = bundle.getString("imgDescription")
                 val date = bundle.getString("imgDate")
-                val id = MapsActivity.myDataset[position].id
 
                 imageView.setImageURI(Uri.parse(image))
                 titleInput.setText(title)
@@ -72,7 +71,7 @@ class DetailEditActivity :AppCompatActivity() {
         }
     }
 
-    fun makeButtonListeners(from: Int, position: Int) {
+    private fun makeButtonListeners(from: Int, position: Int) {
         val imageData: ImageData
         if (from == 0) {
             imageData = MapsActivity.myDataset[position]
@@ -80,7 +79,7 @@ class DetailEditActivity :AppCompatActivity() {
             imageData = PhotosAdapter.items[position]
         }
 
-        var id = imageData.id
+        val id = imageData.id
         val cancelButton: Button = findViewById(R.id.edit_cancel_button)
         cancelButton.setOnClickListener {
             this@DetailEditActivity.finish()

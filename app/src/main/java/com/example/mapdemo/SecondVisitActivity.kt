@@ -45,9 +45,9 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
     private lateinit var easyImage: EasyImage
     private lateinit var mLocationRequest: LocationRequest
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
-    private val mapView: MapView? = null
     private var mViewModel: ImageDataViewModel? = null
     private var allowUpdateLocate: Boolean = false
+    private var mLocationPendingIntent: PendingIntent? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,7 +125,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
      */
     private fun stopLocationUpdates() {
         Log.e("Location", "update stop")
-        mFusedLocationClient.removeLocationUpdates(mLocationCallback)
+        mFusedLocationClient.removeLocationUpdates(mLocationPendingIntent!!)
     }
 
     override fun onResume() {
@@ -137,35 +137,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-//        startLocationUpdates()
-    }
-
-    private var mCurrentLocation: Location? = null
-    private var mLastUpdateTime: String? = null
-    private var mLocationPendingIntent: PendingIntent? = null
-    private var mLocationCallback: LocationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
-            super.onLocationResult(locationResult)
-            mCurrentLocation = locationResult.getLastLocation()
-            mLastUpdateTime = DateFormat.getTimeInstance().format(Date())
-            Log.d("MAP", "new location " + mCurrentLocation.toString())
-            mMap.addMarker(
-                MarkerOptions().position(
-                    LatLng(
-                        mCurrentLocation!!.latitude,
-                        mCurrentLocation!!.longitude
-                    )
-                ).title(mLastUpdateTime)
-            )
-            mMap.moveCamera(
-                CameraUpdateFactory.newLatLngZoom(
-                    LatLng(
-                        mCurrentLocation!!.latitude,
-                        mCurrentLocation!!.longitude
-                    ), 14.0f
-                )
-            )
-        }
+        startLocationUpdates()
     }
 
     private fun initEasyImage() {
@@ -295,15 +267,14 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         val currentDate : String = sdf.format(Date())
         val latitude: Double?
         val longitude: Double?
-        if (mCurrentLocation != null) {
-            latitude = mCurrentLocation!!.latitude
-            longitude = mCurrentLocation!!.longitude
+        if (LocationService.mCurrentLocation != null) {
+            latitude = LocationService.mCurrentLocation!!.latitude
+            longitude = LocationService.mCurrentLocation!!.longitude
         } else {
             latitude = 0.0
             longitude = 0.0
         }
-//        val latitue : Double = mCurrentLocation!!.latitude
-//        val longitude : Double = mCurrentLocation!!.longitude
+
         Log.i("Second visit","date: " + currentDate + " latitude: " + latitude)
         for (mediaFile in returnedPhotos) {
             var imageData = ImageData(
@@ -313,9 +284,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
                 imageLatitude = latitude,
                 imageLongitude = longitude
             )
-//            Log.i("Second visit: ", imageData.toString())
             // Update the database with the newly created object
-//            var id = insertData(imageData)
             this.mViewModel!!.insertNewImageData(imageData)
         }
     }
