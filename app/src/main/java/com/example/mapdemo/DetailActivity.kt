@@ -48,10 +48,12 @@ class DetailActivity : AppCompatActivity() {
         if (bundle != null) {
             // this is the image position in the itemList
             from  = bundle.getInt("from")
+            position = bundle.getInt("position")
             val imageView = findViewById<ImageView>(R.id.detail_image)
             val titleTextView = findViewById<TextView>(R.id.detail_text_title)
             val dateTextView = findViewById<TextView>(R.id.detail_text_date)
             val descriptionTextView = findViewById<TextView>(R.id.detail_text_description)
+            val fabEdit: FloatingActionButton = findViewById(R.id.detail_change_button)
 
             if (from == 0) {
                 val image = bundle.getString("imgUri")
@@ -62,22 +64,31 @@ class DetailActivity : AppCompatActivity() {
                 titleTextView.text = title
                 dateTextView.text = date
                 descriptionTextView.text = description
+
+                fabEdit.setOnClickListener(View.OnClickListener {
+                    startForResult.launch(
+                        Intent( this, DetailEditActivity::class.java).apply {
+                            putExtra("imgUri", image)
+                            putExtra("imgTitle", title)
+                            putExtra("imgDescription", description)
+                            putExtra("date", date)
+                        }
+                    )
+                })
             } else if (from == 1) {
-                position = bundle.getInt("position")
                 imageView.setImageBitmap(PhotosAdapter.items[position].thumbnail!!)
                 titleTextView.text = PhotosAdapter.items[position].imageTitle
                 dateTextView.text = PhotosAdapter.items[position].imageDate
                 descriptionTextView.text = PhotosAdapter.items[position].imageDescription
-            }
 
-            val fabEdit: FloatingActionButton = findViewById(R.id.detail_change_button)
-            fabEdit.setOnClickListener(View.OnClickListener {
-                startForResult.launch(
-                    Intent( this, DetailEditActivity::class.java).apply {
-                        putExtra("position", position)
-                    }
-                )
-            })
+                fabEdit.setOnClickListener(View.OnClickListener {
+                    startForResult.launch(
+                        Intent( this, DetailEditActivity::class.java).apply {
+                            putExtra("position", position)
+                        }
+                    )
+                })
+            }
 
         }
     }

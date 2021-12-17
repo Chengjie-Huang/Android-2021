@@ -3,6 +3,7 @@ package com.example.mapdemo
 import android.app.Activity
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -35,12 +36,11 @@ class DetailEditActivity :AppCompatActivity() {
         if (bundle != null) {
             // this is the image position in the itemList
             position = bundle.getInt("position")
+            val imageView = findViewById<ImageView>(R.id.edit_image)
+            val titleInput = findViewById<TextInputEditText>(R.id.edit_title)
+            val dateInput = findViewById<TextInputEditText>(R.id.edit_date)
+            val descriptionInput = findViewById<TextInputEditText>(R.id.edit_description)
             if (position != -1) {
-                val imageView = findViewById<ImageView>(R.id.edit_image)
-                val titleInput = findViewById<TextInputEditText>(R.id.edit_title)
-                val dateInput = findViewById<TextInputEditText>(R.id.edit_date)
-                val descriptionInput = findViewById<TextInputEditText>(R.id.edit_description)
-
                 makeButtonListeners(position)
 
                 PhotosAdapter.items[position].let {
@@ -50,6 +50,16 @@ class DetailEditActivity :AppCompatActivity() {
                     dateInput.setText(it.imageDate)
                     descriptionInput.setText(it.imageDescription ?: "N/A")
                 }
+            } else {
+                val image = bundle.getString("imgUri")
+                val title = bundle.getString("imgTitle")
+                val description = bundle.getString("imgDescription")
+                val date = bundle.getString("imgDate")
+
+                imageView.setImageURI(Uri.parse(image))
+                titleInput.setText(title)
+                dateInput.setText(date)
+                descriptionInput.setText(description ?: "N/A")
             }
         }
     }

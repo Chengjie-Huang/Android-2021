@@ -235,6 +235,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
                 previewPhotos!!.removeAllViews()
                 myDataset.clear()
                 myDataset.addAll(images!!)
+                var position = 0
                 for (imageData in myDataset) {
                     val imageView = ImageView(this@MapsActivity)
                     val params = LinearLayout.LayoutParams(150, LinearLayout.LayoutParams.MATCH_PARENT)
@@ -245,6 +246,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
                     imageView.setOnClickListener {
                         val intent = Intent(this, DetailActivity::class.java)
                         intent.putExtra("from", 0)
+                        intent.putExtra("position", position)
                         intent.putExtra("imgUri", imageData.imageUri)
                         intent.putExtra("imgTitle", imageData.imageTitle)
                         intent.putExtra("imgDescription", imageData.imageDescription)
@@ -261,6 +263,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
                         imageView.setImageBitmap(bitmap)
                         previewPhotos!!.addView(imageView)
                     }
+                    position += 1
                 }
             }
         }
