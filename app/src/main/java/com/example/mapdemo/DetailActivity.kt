@@ -68,10 +68,11 @@ class DetailActivity : AppCompatActivity() {
                 fabEdit.setOnClickListener(View.OnClickListener {
                     startForResult.launch(
                         Intent( this, DetailEditActivity::class.java).apply {
+                            putExtra("from", 0)
                             putExtra("imgUri", image)
                             putExtra("imgTitle", title)
                             putExtra("imgDescription", description)
-                            putExtra("date", date)
+                            putExtra("imgDate", date)
                         }
                     )
                 })
@@ -84,6 +85,7 @@ class DetailActivity : AppCompatActivity() {
                 fabEdit.setOnClickListener(View.OnClickListener {
                     startForResult.launch(
                         Intent( this, DetailEditActivity::class.java).apply {
+                            putExtra("from", 0)
                             putExtra("position", position)
                         }
                     )
