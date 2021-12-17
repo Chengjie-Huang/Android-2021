@@ -1,3 +1,8 @@
+/**
+ * Develop MapsActivity, which is used to realize the main interface of the app,
+ * realize the photo preview function,
+ * and realize the jump to the visit interface and the search interface.
+ */
 package com.example.mapdemo
 
 import android.os.Bundle
