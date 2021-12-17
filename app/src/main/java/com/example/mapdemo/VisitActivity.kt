@@ -27,7 +27,4 @@ class VisitActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
-
-
 }

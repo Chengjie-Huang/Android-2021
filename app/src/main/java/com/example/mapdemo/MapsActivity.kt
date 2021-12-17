@@ -273,7 +273,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
             }
         }
     }
-
 }
 
 
