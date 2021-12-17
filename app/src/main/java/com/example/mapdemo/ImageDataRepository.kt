@@ -4,7 +4,6 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 
 import com.example.mapdemo.data.ImageDataDao
 import com.example.mapdemo.data.ImageData
@@ -13,8 +12,6 @@ import com.example.mapdemo.data.ImageRoomDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlin.coroutines.CoroutineContext
 
 class ImageDataRepository(application: Application) {
     private var mDBDao: ImageDataDao? = null

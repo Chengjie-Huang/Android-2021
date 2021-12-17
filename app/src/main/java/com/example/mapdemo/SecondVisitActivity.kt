@@ -1,3 +1,9 @@
+/**
+ * SecondVisitActivity,
+ * Realize the record path,  and realize the function of taking photos
+ * into the library and transferring to the library from the album in the Visit activity,
+ * and define the pause and stop of the Visit.
+ */
 package com.example.mapdemo
 
 import android.animation.Animator
@@ -7,6 +13,7 @@ import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,9 +25,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import java.text.DateFormat
 import java.util.*
 import com.google.android.gms.location.LocationRequest
 import pl.aprilapps.easyphotopicker.*
@@ -40,6 +44,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
     private var mViewModel: ImageDataViewModel? = null
     private var allowUpdateLocate: Boolean = false
     private var sensorViewModel: SensorViewModel? = null
+    private var mLocationPendingIntent: PendingIntent? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -144,12 +149,11 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
      */
     private fun stopLocationUpdates() {
         Log.e("Location", "update stop")
-        mFusedLocationClient.removeLocationUpdates(mLocationCallback)
+        mFusedLocationClient.removeLocationUpdates(mLocationPendingIntent!!)
     }
 
     override fun onResume() {
         super.onResume()
-
 
         mLocationRequest = LocationRequest.create().apply {
             interval = 20000
@@ -157,37 +161,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-//        startLocationUpdates()
-
-
-    }
-
-    private var mCurrentLocation: Location? = null
-    private var mLastUpdateTime: String? = null
-    private var mLocationPendingIntent: PendingIntent? = null
-    private var mLocationCallback: LocationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
-            super.onLocationResult(locationResult)
-            mCurrentLocation = locationResult.getLastLocation()
-            mLastUpdateTime = DateFormat.getTimeInstance().format(Date())
-            Log.d("MAP", "new location " + mCurrentLocation.toString())
-            mMap.addMarker(
-                MarkerOptions().position(
-                    LatLng(
-                        mCurrentLocation!!.latitude,
-                        mCurrentLocation!!.longitude
-                    )
-                ).title(mLastUpdateTime)
-            )
-            mMap.moveCamera(
-                CameraUpdateFactory.newLatLngZoom(
-                    LatLng(
-                        mCurrentLocation!!.latitude,
-                        mCurrentLocation!!.longitude
-                    ), 14.0f
-                )
-            )
-        }
+        startLocationUpdates()
     }
 
     private fun initEasyImage() {
@@ -317,15 +291,14 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         val currentDate : String = sdf.format(Date())
         val latitude: Double?
         val longitude: Double?
-        if (mCurrentLocation != null) {
-            latitude = mCurrentLocation!!.latitude
-            longitude = mCurrentLocation!!.longitude
+        if (LocationService.mCurrentLocation != null) {
+            latitude = LocationService.mCurrentLocation!!.latitude
+            longitude = LocationService.mCurrentLocation!!.longitude
         } else {
             latitude = 0.0
             longitude = 0.0
         }
-//        val latitue : Double = mCurrentLocation!!.latitude
-//        val longitude : Double = mCurrentLocation!!.longitude
+
         Log.i("Second visit","date: " + currentDate + " latitude: " + latitude)
         for (mediaFile in returnedPhotos) {
             var imageData = ImageData(
@@ -335,9 +308,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
                 imageLatitude = latitude,
                 imageLongitude = longitude
             )
-//            Log.i("Second visit: ", imageData.toString())
             // Update the database with the newly created object
-//            var id = insertData(imageData)
             this.mViewModel!!.insertNewImageData(imageData)
         }
     }

@@ -1,13 +1,10 @@
 package com.example.mapdemo
 
 import android.app.Application
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import androidx.lifecycle.*
 import com.example.mapdemo.data.ImageData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import pl.aprilapps.easyphotopicker.MediaFile
 
 class ImageDataViewModel(application: Application) : AndroidViewModel(application) {
     private var mRepository: ImageDataRepository = ImageDataRepository(application)

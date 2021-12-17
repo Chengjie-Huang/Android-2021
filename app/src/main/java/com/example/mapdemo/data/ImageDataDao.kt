@@ -13,7 +13,7 @@ import androidx.lifecycle.LiveData
  */
 @Dao
 interface ImageDataDao {
-    @Query("SELECT * from image ORDER BY id ASC")
+    @Query("SELECT * from image ORDER BY date ASC")
     fun getItems(): LiveData<List<ImageData>?>?
 
     @Query("SELECT * from image WHERE id = :id")

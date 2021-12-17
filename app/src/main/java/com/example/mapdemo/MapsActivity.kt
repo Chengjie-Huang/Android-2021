@@ -1,3 +1,9 @@
+/**
+ * Develop MapsActivity to implement the main interface of the app,
+ * implement map and positioning functions on the main interface,
+ * implement a photo preview bar at the bottom,
+ * and jump to the visit interface and search interface through buttons.
+ */
 package com.example.mapdemo
 
 import android.os.Bundle
@@ -32,7 +38,6 @@ import com.example.mapdemo.PermissionUtils.requestPermission
 import com.example.mapdemo.data.ImageData
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.*
-import pl.aprilapps.easyphotopicker.MediaFile
 import java.util.ArrayList
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButtonClickListener,
@@ -43,7 +48,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
     private var locatePermissionDenied = false
     private var mViewModel: ImageDataViewModel? = null
 
-    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -235,6 +239,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
                 previewPhotos!!.removeAllViews()
                 myDataset.clear()
                 myDataset.addAll(images!!)
+                var position = 0
                 for (imageData in myDataset) {
                     val imageView = ImageView(this@MapsActivity)
                     val params = LinearLayout.LayoutParams(150, LinearLayout.LayoutParams.MATCH_PARENT)
@@ -245,10 +250,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
                     imageView.setOnClickListener {
                         val intent = Intent(this, DetailActivity::class.java)
                         intent.putExtra("from", 0)
+                        intent.putExtra("position", position)
                         intent.putExtra("imgUri", imageData.imageUri)
                         intent.putExtra("imgTitle", imageData.imageTitle)
                         intent.putExtra("imgDescription", imageData.imageDescription)
                         intent.putExtra("imgDate", imageData.imageDate)
+                        intent.putExtra("imgLat", imageData.imageLatitude)
+                        intent.putExtra("imgLong", imageData.imageLongitude)
                         startActivity(intent)
                     }
                     CoroutineScope(Dispatchers.Main).launch {
@@ -261,11 +269,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
                         imageView.setImageBitmap(bitmap)
                         previewPhotos!!.addView(imageView)
                     }
+                    position += 1
                 }
             }
         }
     }
-
 }
 
 
