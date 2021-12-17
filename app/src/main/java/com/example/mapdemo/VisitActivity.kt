@@ -1,3 +1,8 @@
+/**
+ * VisitActivity,
+ * by setting the title and pressing the START button to achieve the new visit function,
+ * and jump to SecondVisit to realize the start of the new visit function.
+ */
 package com.example.mapdemo
 
 import android.content.Intent
@@ -27,7 +32,4 @@ class VisitActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
-
-
 }

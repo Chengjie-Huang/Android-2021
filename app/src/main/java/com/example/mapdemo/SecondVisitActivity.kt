@@ -1,3 +1,9 @@
+/**
+ * SecondVisitActivity,
+ * Realize the record path,  and realize the function of taking photos
+ * into the library and transferring to the library from the album in the Visit activity,
+ * and define the pause and stop of the Visit.
+ */
 package com.example.mapdemo
 
 import android.Manifest

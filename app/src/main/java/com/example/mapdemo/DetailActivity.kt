@@ -1,3 +1,9 @@
+/**
+ * DetailActivity,
+ * this interface displays a large picture of the photo,
+ * and can display detailed information such as Title, Date, Location, Description,
+ * and provides an edit button for the user to enable the user to learn and edit the photo.
+ */
 package com.example.mapdemo
 
 import android.app.Activity

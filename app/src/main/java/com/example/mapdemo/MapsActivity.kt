@@ -1,7 +1,8 @@
 /**
- * Develop MapsActivity, which is used to realize the main interface of the app,
- * realize the photo preview function,
- * and realize the jump to the visit interface and the search interface.
+ * Develop MapsActivity to implement the main interface of the app,
+ * implement map and positioning functions on the main interface,
+ * implement a photo preview bar at the bottom,
+ * and jump to the visit interface and search interface through buttons.
  */
 package com.example.mapdemo
 
