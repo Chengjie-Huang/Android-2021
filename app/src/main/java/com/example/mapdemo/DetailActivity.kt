@@ -6,23 +6,16 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
+
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.example.mapdemo.data.ImageDataDao
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
+
 
 class DetailActivity : AppCompatActivity() {
-    val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
-    lateinit var daoObj: ImageDataDao
-
     val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             val position = result.data?.getIntExtra("position", -1)
@@ -51,20 +44,21 @@ class DetailActivity : AppCompatActivity() {
             val imageView = findViewById<ImageView>(R.id.detail_image)
             val titleTextView = findViewById<TextView>(R.id.detail_text_title)
             val dateTextView = findViewById<TextView>(R.id.detail_text_date)
-            val pathTextView = findViewById<TextView>(R.id.detail_text_path)
+            val locationTextView = findViewById<TextView>(R.id.detail_text_path)
             val descriptionTextView = findViewById<TextView>(R.id.detail_text_description)
             val fabEdit: FloatingActionButton = findViewById(R.id.detail_change_button)
 
             if (from == 0) {
                 val image = bundle.getString("imgUri")
                 val title = bundle.getString("imgTitle")
-                val path = bundle.getString("imgUri")
+                val latitude = bundle.getDouble("imgLat")
+                val longitude = bundle.getDouble("imgLong")
                 val description = bundle.getString("imgDescription")
                 val date = bundle.getString("imgDate")
                 imageView.setImageURI(Uri.parse(image))
                 titleTextView.text = title
                 dateTextView.text = date
-                pathTextView.text = path
+                locationTextView.text = latitude.toString() + ", " + longitude.toString()
                 descriptionTextView.text = description
 
                 fabEdit.setOnClickListener(View.OnClickListener {
@@ -79,10 +73,13 @@ class DetailActivity : AppCompatActivity() {
                     )
                 })
             } else if (from == 1) {
+                val latitude = PhotosAdapter.items[position].imageLatitude.toString()
+                val longitude = PhotosAdapter.items[position].imageLongitude.toString()
+
                 imageView.setImageBitmap(PhotosAdapter.items[position].thumbnail!!)
                 titleTextView.text = PhotosAdapter.items[position].imageTitle
                 dateTextView.text = PhotosAdapter.items[position].imageDate
-                pathTextView.text = PhotosAdapter.items[position].imageUri
+                locationTextView.text = latitude + ", " + longitude
                 descriptionTextView.text = PhotosAdapter.items[position].imageDescription
 
                 fabEdit.setOnClickListener(View.OnClickListener {

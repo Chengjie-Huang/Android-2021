@@ -255,6 +255,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnMyLocationButton
                         intent.putExtra("imgTitle", imageData.imageTitle)
                         intent.putExtra("imgDescription", imageData.imageDescription)
                         intent.putExtra("imgDate", imageData.imageDate)
+                        intent.putExtra("imgLat", imageData.imageLatitude)
+                        intent.putExtra("imgLong", imageData.imageLongitude)
                         startActivity(intent)
                     }
                     CoroutineScope(Dispatchers.Main).launch {
