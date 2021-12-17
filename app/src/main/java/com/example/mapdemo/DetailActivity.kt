@@ -89,7 +89,7 @@ class DetailActivity : AppCompatActivity() {
                 fabEdit.setOnClickListener(View.OnClickListener {
                     startForResult.launch(
                         Intent( this, DetailEditActivity::class.java).apply {
-                            putExtra("from", 0)
+                            putExtra("from", 1)
                             putExtra("position", position)
                         }
                     )

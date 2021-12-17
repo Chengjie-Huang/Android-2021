@@ -59,6 +59,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         changeLocationButtonPosition(mapFragment)
 
         initEasyImage()
+        this.mViewModel = ViewModelProvider(this)[ImageDataViewModel::class.java]
 
         // Operation when clicking on the main list button
         val mainButton = findViewById<FloatingActionButton>(R.id.main_list_second_button)
