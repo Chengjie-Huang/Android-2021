@@ -22,25 +22,26 @@
     <FrameLayout
         android:id="@+id/edit_frameLayout_photo"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="200dp"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
         <ImageView
             android:id="@+id/edit_image"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="200dp"
             android:contentDescription="TODO"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
     </FrameLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_title_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
+        android:layout_marginVertical="10dp"
         android:focusableInTouchMode="true"
         android:hint="@string/new_title"
-        app:layout_constraintBottom_toTopOf="@+id/edit_date_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_frameLayout_photo">
@@ -51,7 +52,7 @@
             android:layout_height="wrap_content"
             android:inputType="textAutoComplete|textAutoCorrect"
             android:singleLine="true"
-            android:textSize="16sp"/>
+            android:textSize="20sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -59,9 +60,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
+        android:layout_marginVertical="10dp"
         android:focusableInTouchMode="true"
         android:hint="@string/new_date"
-        app:layout_constraintBottom_toTopOf="@+id/edit_description_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_title_label">
@@ -72,14 +73,15 @@
             android:layout_height="wrap_content"
             android:inputType="textAutoCorrect"
             android:singleLine="false"
-            android:textSize="16sp"/>
+            android:textSize="20sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_description_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginVertical="10dp"
         android:focusableInTouchMode="true"
         android:hint="@string/new_description"
         app:layout_constraintBottom_toTopOf="@+id/edit_cancel_button"
@@ -90,10 +92,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_description"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textAutoCorrect"
+            android:layout_height="160dp"
+            android:inputType="textMultiLine"
             android:singleLine="false"
-            android:textSize="16sp"/>
+            android:textSize="20sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
