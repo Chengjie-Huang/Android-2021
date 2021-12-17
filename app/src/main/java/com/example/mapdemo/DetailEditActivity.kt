@@ -1,3 +1,8 @@
+/**
+ * DetailEditActivity,
+ * this interface realizes the function of editing photos,
+ * and can modify the Title, Date, and Description information of the photos and store them in the database.
+ */
 package com.example.mapdemo
 
 import android.app.Activity

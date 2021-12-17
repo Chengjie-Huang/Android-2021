@@ -1,3 +1,8 @@
+/**
+ * SearchActivity,
+ * realize the visual preview of specific photos through the photo retrieval of Title and Date,
+ * and realize the visual preview of all photos when Title and Date are empty
+ */
 package com.example.mapdemo
 
 import android.content.Intent

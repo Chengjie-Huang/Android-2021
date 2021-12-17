@@ -1,3 +1,8 @@
+/**
+ * PhotosActivity,
+ * the visual preview of the photo library is realized on this interface,
+ * and the detailed information of the photo can be viewed by clicking on the photo.
+ */
 package com.example.mapdemo
 
 import android.app.Activity
