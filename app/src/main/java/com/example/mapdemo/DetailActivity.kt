@@ -58,7 +58,7 @@ class DetailActivity : AppCompatActivity() {
             val dateTextView = findViewById<TextView>(R.id.detail_text_date)
             val pathTextView = findViewById<TextView>(R.id.detail_text_path)
             val descriptionTextView = findViewById<TextView>(R.id.detail_text_description)
-
+            //Get photo information and display it on the interface
             if (from == 0) {
                 val image = bundle.getString("imgUri")
                 val title = bundle.getString("imgTitle")
@@ -78,7 +78,7 @@ class DetailActivity : AppCompatActivity() {
                 pathTextView.text = PhotosAdapter.items[position].imageUri
                 descriptionTextView.text = PhotosAdapter.items[position].imageDescription
             }
-
+            //Realize the photo editing button and jump to the editing interface.
             val fabEdit: FloatingActionButton = findViewById(R.id.detail_change_button)
             fabEdit.setOnClickListener(View.OnClickListener {
                 startForResult.launch(

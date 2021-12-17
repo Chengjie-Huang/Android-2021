@@ -62,11 +62,12 @@ class DetailEditActivity :AppCompatActivity() {
     fun makeButtonListeners(position: Int) {
         var id = PhotosAdapter.items[position].id
         val cancelButton: Button = findViewById(R.id.edit_cancel_button)
+        // Return to the photo details interface
         cancelButton.setOnClickListener {
             this@DetailEditActivity.finish()
         }
 
-        // Delete button listener
+        // Implement delete function and return to the photo details interface
         val deleteButton: Button = findViewById(R.id.edit_delete_button)
         deleteButton.setOnClickListener {
             this.mViewModel!!.deleteImageData(PhotosAdapter.items[position])
@@ -79,7 +80,7 @@ class DetailEditActivity :AppCompatActivity() {
             this@DetailEditActivity.finish()
         }
 
-        // Save button listener
+        // Implement save function and return to the photo details interface
         val saveButton: Button = findViewById(R.id.edit_save_button)
         saveButton.setOnClickListener {
 

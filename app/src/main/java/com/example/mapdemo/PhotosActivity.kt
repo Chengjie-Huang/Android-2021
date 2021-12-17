@@ -60,7 +60,11 @@ class PhotosActivity : AppCompatActivity() {
         super.onResume()
         displayImage()
     }
-
+    /**
+     * According to the incoming Title and Date,
+     * the photos are retrieved and displayed.
+     * If they are all empty, all photos will be displayed.
+     */
     private fun displayImage() {
         var bundle = this.intent.extras
         title = bundle?.getString("search_title", "").toString()
@@ -99,6 +103,7 @@ class PhotosActivity : AppCompatActivity() {
             }
         }
     }
+
     val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {

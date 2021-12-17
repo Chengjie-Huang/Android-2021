@@ -26,6 +26,7 @@ class VisitActivity : AppCompatActivity() {
         val currentDate: String = sdf.format(Date())
 
         explainText.text = currentDate
+        //Jump to the SecondVisit interface
         startButton.setOnClickListener {
             val intent = Intent(this, SecondVisitActivity::class.java)
             intent.putExtra("visit_title", editView.text)
