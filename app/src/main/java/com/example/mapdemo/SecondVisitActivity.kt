@@ -84,6 +84,8 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         stopButton.setOnClickListener(View.OnClickListener {
             stopLocationUpdates()
             allowUpdateLocate = false
+            val intent = Intent(this, MapsActivity::class.java)
+            startActivity(intent)
         })
     }
 
@@ -105,14 +107,14 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         )
         locationTask.addOnFailureListener { e ->
             if (e is ApiException) {
-                e.message?.let { Log.w("MapsActivity", it) }
+                e.message?.let { Log.w("VisitActivity", it) }
             } else {
-                Log.w("MapsActivity", e.message!!)
+                Log.w("VisitActivity", e.message!!)
             }
         }
         locationTask.addOnCompleteListener {
             Log.d(
-                "MapsActivity",
+                "VisitActivity",
                 "starting gps successful!"
             )
         }
@@ -130,7 +132,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         super.onResume()
 
         mLocationRequest = LocationRequest.create().apply {
-            interval = 1000
+            interval = 20000
             fastestInterval = 5000
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
@@ -189,7 +191,7 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         locationButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_END, 0)
         locationButtonLayout.addRule(RelativeLayout.ALIGN_END, 0)
         locationButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_LEFT)
-        locationButtonLayout.setMargins(30, 0, 0, 80)
+        locationButtonLayout.setMargins(30, 0, 0, 10)
     }
     /**
      * Show the main button list by animation.
@@ -291,24 +293,24 @@ class SecondVisitActivity : AppCompatActivity(), GoogleMap.OnMyLocationClickList
         val title : String = bundle?.get("visit_title").toString()
         val sdf = SimpleDateFormat("dd/M/yyyy")
         val currentDate : String = sdf.format(Date())
-        val latitue: Double?
+        val latitude: Double?
         val longitude: Double?
         if (mCurrentLocation != null) {
-            latitue = mCurrentLocation!!.latitude
+            latitude = mCurrentLocation!!.latitude
             longitude = mCurrentLocation!!.longitude
         } else {
-            latitue = 0.0
+            latitude = 0.0
             longitude = 0.0
         }
 //        val latitue : Double = mCurrentLocation!!.latitude
 //        val longitude : Double = mCurrentLocation!!.longitude
-        Log.i("Second visit","date: " + currentDate + " latitude: " + latitue)
+        Log.i("Second visit","date: " + currentDate + " latitude: " + latitude)
         for (mediaFile in returnedPhotos) {
             var imageData = ImageData(
                 imageTitle = title,
                 imageUri = mediaFile.file.absolutePath,
                 imageDate = currentDate,
-                imageLatitude = latitue,
+                imageLatitude = latitude,
                 imageLongitude = longitude
             )
 //            Log.i("Second visit: ", imageData.toString())
